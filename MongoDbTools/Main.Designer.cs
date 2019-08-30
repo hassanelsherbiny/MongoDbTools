@@ -32,15 +32,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.BtnConnect = new System.Windows.Forms.ToolStripButton();
+            this.BtnDisconnect = new System.Windows.Forms.ToolStripButton();
             this.ConnectionImageList = new System.Windows.Forms.ImageList(this.components);
             this.DbContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.BtnImport = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtnImportJson = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnExportDb = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnDropDatabase = new System.Windows.Forms.ToolStripMenuItem();
             this.ServerContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.BtnAddDataBase = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnServerDisconnect = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnServerRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtnRestoreDb = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.LocalHostMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.BtnLocalHostStart = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,18 +53,21 @@
             this.LblLocalHostState = new System.Windows.Forms.ToolStripStatusLabel();
             this.LocalHostChecker = new System.Windows.Forms.Timer(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.ConnectionTree = new System.Windows.Forms.TreeView();
             this.TxtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.CollectionExplorer = new System.Windows.Forms.TabControl();
             this.LogImageList = new System.Windows.Forms.ImageList(this.components);
-            this.CollectionExplorerTab = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-            this.ConnectionTree = new System.Windows.Forms.TreeView();
-            this.BtnRestoreDb = new System.Windows.Forms.ToolStripMenuItem();
+            this.CollectionContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtnDeleteCollection = new System.Windows.Forms.ToolStripMenuItem();
+            this.CollectionExplorerMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.BtnCloseTabExplorer = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtnCloseAllTabs = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtnCloseAllButThis = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtnCloseTabsToRight = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtnCloseTabsToLeft = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.DbContextMenu.SuspendLayout();
             this.ServerContextMenu.SuspendLayout();
@@ -71,13 +77,8 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.CollectionExplorerTab.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.CollectionContext.SuspendLayout();
+            this.CollectionExplorerMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -85,7 +86,8 @@
             this.toolStrip1.AutoSize = false;
             this.toolStrip1.BackColor = System.Drawing.Color.White;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.BtnConnect});
+            this.BtnConnect,
+            this.BtnDisconnect});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1124, 50);
@@ -102,6 +104,16 @@
             this.BtnConnect.Text = "Connect";
             this.BtnConnect.Click += new System.EventHandler(this.BtnConnect_Click);
             // 
+            // BtnDisconnect
+            // 
+            this.BtnDisconnect.Image = global::MongoDbTools.Properties.Resources.deletedatasource2_32x32;
+            this.BtnDisconnect.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.BtnDisconnect.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BtnDisconnect.Name = "BtnDisconnect";
+            this.BtnDisconnect.Size = new System.Drawing.Size(102, 47);
+            this.BtnDisconnect.Text = "Disconnect";
+            this.BtnDisconnect.Click += new System.EventHandler(this.BtnDisconnect_Click);
+            // 
             // ConnectionImageList
             // 
             this.ConnectionImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ConnectionImageList.ImageStream")));
@@ -114,30 +126,43 @@
             // 
             this.DbContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BtnImport,
+            this.BtnImportJson,
             this.BtnExportDb,
             this.BtnDropDatabase});
             this.DbContextMenu.Name = "DbContextMenu";
-            this.DbContextMenu.Size = new System.Drawing.Size(179, 70);
+            this.DbContextMenu.Size = new System.Drawing.Size(176, 92);
             // 
             // BtnImport
             // 
+            this.BtnImport.Image = global::MongoDbTools.Properties.Resources.converttorange_16x16;
             this.BtnImport.Name = "BtnImport";
-            this.BtnImport.Size = new System.Drawing.Size(178, 22);
+            this.BtnImport.Size = new System.Drawing.Size(175, 22);
             this.BtnImport.Text = "Import";
             this.BtnImport.Click += new System.EventHandler(this.BtnImport_Click);
             // 
+            // BtnImportJson
+            // 
+            this.BtnImportJson.Image = global::MongoDbTools.Properties.Resources.converttorange_16x16;
+            this.BtnImportJson.Name = "BtnImportJson";
+            this.BtnImportJson.Size = new System.Drawing.Size(175, 22);
+            this.BtnImportJson.Text = "Import From Json";
+            this.BtnImportJson.Click += new System.EventHandler(this.BtnImportJson_Click);
+            // 
             // BtnExportDb
             // 
+            this.BtnExportDb.Image = global::MongoDbTools.Properties.Resources.export_16x16;
             this.BtnExportDb.Name = "BtnExportDb";
-            this.BtnExportDb.Size = new System.Drawing.Size(178, 22);
+            this.BtnExportDb.Size = new System.Drawing.Size(175, 22);
             this.BtnExportDb.Text = "Export";
             this.BtnExportDb.Click += new System.EventHandler(this.BtnExportDb_Click);
             // 
             // BtnDropDatabase
             // 
+            this.BtnDropDatabase.Image = global::MongoDbTools.Properties.Resources.delete_16x16;
             this.BtnDropDatabase.Name = "BtnDropDatabase";
-            this.BtnDropDatabase.Size = new System.Drawing.Size(178, 22);
-            this.BtnDropDatabase.Text = "Drop Database (del)";
+            this.BtnDropDatabase.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.BtnDropDatabase.Size = new System.Drawing.Size(175, 22);
+            this.BtnDropDatabase.Text = "Drop Database";
             this.BtnDropDatabase.Click += new System.EventHandler(this.BtnDropDatabase_Click);
             // 
             // ServerContextMenu
@@ -148,27 +173,38 @@
             this.BtnServerRefresh,
             this.BtnRestoreDb});
             this.ServerContextMenu.Name = "DbContextMenu";
-            this.ServerContextMenu.Size = new System.Drawing.Size(181, 114);
+            this.ServerContextMenu.Size = new System.Drawing.Size(165, 92);
             // 
             // BtnAddDataBase
             // 
+            this.BtnAddDataBase.Image = global::MongoDbTools.Properties.Resources.addnewdatasource_16x16;
             this.BtnAddDataBase.Name = "BtnAddDataBase";
-            this.BtnAddDataBase.Size = new System.Drawing.Size(180, 22);
+            this.BtnAddDataBase.Size = new System.Drawing.Size(164, 22);
             this.BtnAddDataBase.Text = "Add Database";
             this.BtnAddDataBase.Click += new System.EventHandler(this.BtnAddDataBase_Click);
             // 
             // BtnServerDisconnect
             // 
+            this.BtnServerDisconnect.Image = global::MongoDbTools.Properties.Resources.deletedatasource_16x16;
             this.BtnServerDisconnect.Name = "BtnServerDisconnect";
-            this.BtnServerDisconnect.Size = new System.Drawing.Size(180, 22);
+            this.BtnServerDisconnect.Size = new System.Drawing.Size(164, 22);
             this.BtnServerDisconnect.Text = "Disconnect";
+            this.BtnServerDisconnect.Click += new System.EventHandler(this.BtnServerDisconnect_Click);
             // 
             // BtnServerRefresh
             // 
+            this.BtnServerRefresh.Image = global::MongoDbTools.Properties.Resources.refresh_16x16;
             this.BtnServerRefresh.Name = "BtnServerRefresh";
-            this.BtnServerRefresh.Size = new System.Drawing.Size(180, 22);
+            this.BtnServerRefresh.Size = new System.Drawing.Size(164, 22);
             this.BtnServerRefresh.Text = "Refresh";
             this.BtnServerRefresh.Click += new System.EventHandler(this.BtnServerRefresh_Click);
+            // 
+            // BtnRestoreDb
+            // 
+            this.BtnRestoreDb.Name = "BtnRestoreDb";
+            this.BtnRestoreDb.Size = new System.Drawing.Size(164, 22);
+            this.BtnRestoreDb.Text = "Restore Database";
+            this.BtnRestoreDb.Click += new System.EventHandler(this.BtnRestoreDb_Click);
             // 
             // statusStrip1
             // 
@@ -245,10 +281,25 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.CollectionExplorerTab);
+            this.splitContainer1.Panel2.Controls.Add(this.CollectionExplorer);
             this.splitContainer1.Size = new System.Drawing.Size(1124, 378);
             this.splitContainer1.SplitterDistance = 262;
             this.splitContainer1.TabIndex = 7;
+            // 
+            // ConnectionTree
+            // 
+            this.ConnectionTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ConnectionTree.ImageIndex = 0;
+            this.ConnectionTree.ImageList = this.ConnectionImageList;
+            this.ConnectionTree.Location = new System.Drawing.Point(0, 33);
+            this.ConnectionTree.Name = "ConnectionTree";
+            this.ConnectionTree.SelectedImageIndex = 0;
+            this.ConnectionTree.Size = new System.Drawing.Size(262, 345);
+            this.ConnectionTree.TabIndex = 4;
+            this.ConnectionTree.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.ConnectionTree_BeforeExpand);
+            this.ConnectionTree.DoubleClick += new System.EventHandler(this.ConnectionTree_DoubleClick);
+            this.ConnectionTree.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConnectionTree_KeyDown);
+            this.ConnectionTree.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ConnectionTree_MouseUp);
             // 
             // TxtSearch
             // 
@@ -268,6 +319,17 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Search";
             // 
+            // CollectionExplorer
+            // 
+            this.CollectionExplorer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CollectionExplorer.Location = new System.Drawing.Point(0, 0);
+            this.CollectionExplorer.Name = "CollectionExplorer";
+            this.CollectionExplorer.Padding = new System.Drawing.Point(15, 3);
+            this.CollectionExplorer.SelectedIndex = 0;
+            this.CollectionExplorer.Size = new System.Drawing.Size(858, 378);
+            this.CollectionExplorer.TabIndex = 1;
+            this.CollectionExplorer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CollectionExplorer_MouseDown);
+            // 
             // LogImageList
             // 
             this.LogImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("LogImageList.ImageStream")));
@@ -276,99 +338,84 @@
             this.LogImageList.Images.SetKeyName(1, "apply_16x16.png");
             this.LogImageList.Images.SetKeyName(2, "cancel_16x16.png");
             // 
-            // CollectionExplorerTab
+            // CollectionContext
             // 
-            this.CollectionExplorerTab.Controls.Add(this.tabPage1);
-            this.CollectionExplorerTab.Controls.Add(this.tabPage2);
-            this.CollectionExplorerTab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CollectionExplorerTab.Location = new System.Drawing.Point(0, 0);
-            this.CollectionExplorerTab.Name = "CollectionExplorerTab";
-            this.CollectionExplorerTab.SelectedIndex = 0;
-            this.CollectionExplorerTab.Size = new System.Drawing.Size(858, 378);
-            this.CollectionExplorerTab.TabIndex = 1;
+            this.CollectionContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToolStripMenuItem,
+            this.importToolStripMenuItem,
+            this.BtnDeleteCollection});
+            this.CollectionContext.Name = "CollectionContext";
+            this.CollectionContext.Size = new System.Drawing.Size(182, 70);
             // 
-            // tabPage1
+            // exportToolStripMenuItem
             // 
-            this.tabPage1.Controls.Add(this.splitContainer2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(850, 352);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.exportToolStripMenuItem.Image = global::MongoDbTools.Properties.Resources.export_16x16;
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.exportToolStripMenuItem.Text = "Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
-            // splitContainer2
+            // importToolStripMenuItem
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.importToolStripMenuItem.Image = global::MongoDbTools.Properties.Resources.converttorange_16x16;
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.importToolStripMenuItem.Text = "Import";
             // 
-            // splitContainer2.Panel2
+            // BtnDeleteCollection
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.dataGridView2);
-            this.splitContainer2.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer2.Size = new System.Drawing.Size(844, 346);
-            this.splitContainer2.SplitterDistance = 26;
-            this.splitContainer2.TabIndex = 0;
+            this.BtnDeleteCollection.Image = global::MongoDbTools.Properties.Resources.delete_16x16;
+            this.BtnDeleteCollection.Name = "BtnDeleteCollection";
+            this.BtnDeleteCollection.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.BtnDeleteCollection.Size = new System.Drawing.Size(181, 22);
+            this.BtnDeleteCollection.Text = "Drop Collection";
+            this.BtnDeleteCollection.Click += new System.EventHandler(this.BtnDeleteCollection_Click);
             // 
-            // dataGridView2
+            // CollectionExplorerMenu
             // 
-            this.dataGridView2.AllowUserToOrderColumns = true;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(844, 316);
-            this.dataGridView2.TabIndex = 1;
+            this.CollectionExplorerMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.BtnCloseTabExplorer,
+            this.BtnCloseAllTabs,
+            this.BtnCloseAllButThis,
+            this.BtnCloseTabsToRight,
+            this.BtnCloseTabsToLeft});
+            this.CollectionExplorerMenu.Name = "CollectionExplorerMenu";
+            this.CollectionExplorerMenu.Size = new System.Drawing.Size(168, 114);
             // 
-            // dataGridView1
+            // BtnCloseTabExplorer
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(844, 316);
-            this.dataGridView1.TabIndex = 0;
+            this.BtnCloseTabExplorer.Name = "BtnCloseTabExplorer";
+            this.BtnCloseTabExplorer.Size = new System.Drawing.Size(167, 22);
+            this.BtnCloseTabExplorer.Text = "Close";
+            this.BtnCloseTabExplorer.Click += new System.EventHandler(this.BtnCloseTabExplorer_Click);
             // 
-            // tabPage2
+            // BtnCloseAllTabs
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(850, 352);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.BtnCloseAllTabs.Name = "BtnCloseAllTabs";
+            this.BtnCloseAllTabs.Size = new System.Drawing.Size(167, 22);
+            this.BtnCloseAllTabs.Text = "Close All";
+            this.BtnCloseAllTabs.Click += new System.EventHandler(this.BtnCloseAllTabs_Click);
             // 
-            // simpleButton1
+            // BtnCloseAllButThis
             // 
-            this.simpleButton1.ImageOptions.Image = global::MongoDbTools.Properties.Resources.time_16x16;
-            this.simpleButton1.Location = new System.Drawing.Point(655, 21);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(75, 23);
-            this.simpleButton1.TabIndex = 1;
-            this.simpleButton1.Text = "simpleButton1";
+            this.BtnCloseAllButThis.Name = "BtnCloseAllButThis";
+            this.BtnCloseAllButThis.Size = new System.Drawing.Size(167, 22);
+            this.BtnCloseAllButThis.Text = "Close All But This";
+            this.BtnCloseAllButThis.Click += new System.EventHandler(this.BtnCloseAllButThis_Click);
             // 
-            // ConnectionTree
+            // BtnCloseTabsToRight
             // 
-            this.ConnectionTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ConnectionTree.ImageIndex = 0;
-            this.ConnectionTree.ImageList = this.ConnectionImageList;
-            this.ConnectionTree.Location = new System.Drawing.Point(0, 33);
-            this.ConnectionTree.Name = "ConnectionTree";
-            this.ConnectionTree.SelectedImageIndex = 0;
-            this.ConnectionTree.Size = new System.Drawing.Size(262, 345);
-            this.ConnectionTree.TabIndex = 4;
+            this.BtnCloseTabsToRight.Name = "BtnCloseTabsToRight";
+            this.BtnCloseTabsToRight.Size = new System.Drawing.Size(167, 22);
+            this.BtnCloseTabsToRight.Text = "Close All To Right";
+            this.BtnCloseTabsToRight.Click += new System.EventHandler(this.BtnCloseTabsToRight_Click);
             // 
-            // BtnRestoreDb
+            // BtnCloseTabsToLeft
             // 
-            this.BtnRestoreDb.Name = "BtnRestoreDb";
-            this.BtnRestoreDb.Size = new System.Drawing.Size(180, 22);
-            this.BtnRestoreDb.Text = "Restore Database";
-            this.BtnRestoreDb.Click += new System.EventHandler(this.BtnRestoreDb_Click);
+            this.BtnCloseTabsToLeft.Name = "BtnCloseTabsToLeft";
+            this.BtnCloseTabsToLeft.Size = new System.Drawing.Size(167, 22);
+            this.BtnCloseTabsToLeft.Text = "Close All To Left";
+            this.BtnCloseTabsToLeft.Click += new System.EventHandler(this.BtnCloseTabsToLeft_Click);
             // 
             // Main
             // 
@@ -376,7 +423,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1124, 450);
-            this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -398,13 +444,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.CollectionExplorerTab.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.CollectionContext.ResumeLayout(false);
+            this.CollectionExplorerMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -431,19 +472,25 @@
         private System.Windows.Forms.ToolStripMenuItem BtnLocalHostStop;
         private System.Windows.Forms.ToolStripMenuItem BtnLocalHostRestart;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TabControl CollectionExplorerTab;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox TxtSearch;
         private System.Windows.Forms.Label label1;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private System.Windows.Forms.ImageList LogImageList;
         private System.Windows.Forms.ToolStripMenuItem BtnImport;
-        private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.TreeView ConnectionTree;
         private System.Windows.Forms.ToolStripMenuItem BtnRestoreDb;
+        private System.Windows.Forms.TabControl CollectionExplorer;
+        private System.Windows.Forms.ContextMenuStrip CollectionContext;
+        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem BtnDeleteCollection;
+        private System.Windows.Forms.ToolStripButton BtnDisconnect;
+        private System.Windows.Forms.ToolStripMenuItem BtnImportJson;
+        private System.Windows.Forms.ContextMenuStrip CollectionExplorerMenu;
+        private System.Windows.Forms.ToolStripMenuItem BtnCloseTabExplorer;
+        private System.Windows.Forms.ToolStripMenuItem BtnCloseAllTabs;
+        private System.Windows.Forms.ToolStripMenuItem BtnCloseAllButThis;
+        private System.Windows.Forms.ToolStripMenuItem BtnCloseTabsToRight;
+        private System.Windows.Forms.ToolStripMenuItem BtnCloseTabsToLeft;
     }
 }
 

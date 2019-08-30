@@ -105,7 +105,8 @@ namespace MongoDbTools
 
         private void BtnEdit_Click(object sender, EventArgs e)
         {
-
+            (new NewConnectionFrm(ConnectionsGrid.SelectedRows[0].Index)).ShowDialog();
+            ConnectionsGrid.DataSource = Session.Settings.Servers;
         }
 
         private void ConnectionsGrid_MouseDown(object sender, MouseEventArgs e)

@@ -1,4 +1,5 @@
-﻿using MongoConnection.Logic;
+﻿using MongoConnection.Data;
+using MongoConnection.Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,13 +14,13 @@ namespace MongoDbTools
 {
     public partial class ImportDumpFrm : Form
     {
-        string ConnectionString;
-        public ImportDumpFrm(string ConnectionString)
+        MDTServer server;
+        public ImportDumpFrm(MDTServer server)
         {
             InitializeComponent();
-            this.ConnectionString = ConnectionString;
+            this.server = server;
         }
-        public ImportDumpFrm(string DbName, string ConnectionString) : this(ConnectionString)
+        public ImportDumpFrm(string DbName, MDTServer server) : this(server)
         {
             this.TxtDbName.Text = DbName;
         }
@@ -28,10 +29,9 @@ namespace MongoDbTools
         {
             if (System.IO.File.Exists(TxtPath.Text))
             {
-                MongoGeneralLogic.ImportFromDump(ConnectionString, TxtDbName.Text, TxtPath.Text, ChkDropIfExist.Checked);
-                DialogResult = DialogResult.OK;
-                MessageBox.Show("Done");
-                Close();
+                LoadingImg.Visible = true;
+                LoadingLbl.Visible = true;
+                backgroundWorker1.RunWorkerAsync(); 
             }
             else
             {
@@ -47,6 +47,18 @@ namespace MongoDbTools
             {
                 TxtPath.Text = ofd.FileName;
             }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            MongoGeneralLogic.ImportFromDump(server, TxtDbName.Text, TxtPath.Text, ChkDropIfExist.Checked);
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        { 
+            DialogResult = DialogResult.OK;
+            MessageBox.Show("Done");
+            Close();
         }
     }
 }

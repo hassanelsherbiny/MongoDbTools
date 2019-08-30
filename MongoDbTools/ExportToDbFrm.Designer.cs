@@ -41,12 +41,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ChkCreateDatabase = new System.Windows.Forms.CheckBox();
             this.ConnectionsGrid = new System.Windows.Forms.DataGridView();
-            this.mDTServerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.IconCol = new System.Windows.Forms.DataGridViewImageColumn();
             this.connectionAliasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.serverDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.portDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.useAuthDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.mDTServerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.PnlNewDb.SuspendLayout();
@@ -179,10 +179,6 @@
             this.ConnectionsGrid.TabIndex = 4;
             this.ConnectionsGrid.SelectionChanged += new System.EventHandler(this.ConnectionsGrid_SelectionChanged);
             // 
-            // mDTServerBindingSource
-            // 
-            this.mDTServerBindingSource.DataSource = typeof(MongoConnection.Data.MDTServer);
-            // 
             // IconCol
             // 
             this.IconCol.FillWeight = 20F;
@@ -218,6 +214,10 @@
             this.useAuthDataGridViewCheckBoxColumn.HeaderText = "UseAuth";
             this.useAuthDataGridViewCheckBoxColumn.Name = "useAuthDataGridViewCheckBoxColumn";
             this.useAuthDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // mDTServerBindingSource
+            // 
+            this.mDTServerBindingSource.DataSource = typeof(MongoConnection.Data.MDTServer);
             // 
             // ExportToDbFrm
             // 

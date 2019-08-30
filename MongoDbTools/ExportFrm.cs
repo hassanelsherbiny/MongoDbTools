@@ -7,14 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MongoConnection.Data;
 using MongoConnection.Logic;
 
 namespace MongoDbTools
 {
     public partial class ExportFrm : Form
     {
-        string ConnectionString, DbName;
-
+        string DbName;
+        MDTServer server;
         private void ChkAll_CheckedChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < CollectionChk.Items.Count; i++)
@@ -45,27 +46,43 @@ namespace MongoDbTools
             //TODO Check Save Path
             if (RdJson.Checked)
             {
-
-                //TODO Check Mongo Path 
-                string MongoPath = @"C:\Program Files\MongoDB\Server\3.4\bin\";
-                MongoGeneralLogic.ExportToJson(ConnectionString, DbName, txtSavePath.Text, Collections, MongoPath,
-                    ChkFormatJson.Checked, out log);
-                Close();
+                if (!string.IsNullOrEmpty(txtSavePath.Text))
+                {
+                    MongoGeneralLogic.ExportToJson(server.ConnectionString, DbName, txtSavePath.Text, Collections,
+                    ChkFormatJson.Checked, ChkArray.Checked, out log);
+                    log = string.IsNullOrEmpty(log) ? "Done" : "";
+                    MessageBox.Show(log);
+                    Close();
+                }
             }
             else if (RdAnotherDb.Checked)
             {
-                var exportTodbFrm = new ExportToDbFrm(ConnectionString, DbName, Collections);
+                var exportTodbFrm = new ExportToDbFrm(server.ConnectionString, DbName, Collections);
                 if (exportTodbFrm.ShowDialog() == DialogResult.OK)
                 {
+                    log = string.IsNullOrEmpty(log) ? "Done" : "";
+                    MessageBox.Show(log);
                     Close();
                 }
-
+                else
+                {
+                    MessageBox.Show("Please Select Save Location");
+                }
             }
             else if (RdBackUpFile.Checked)
             {
-                string MongoPath = @"C:\Program Files\MongoDB\Server\3.4\bin\";
-                MongoGeneralLogic.ExportToDump(ConnectionString, DbName, TxtMdtFilePath.Text, Collections, MongoPath, out log);
-                MessageBox.Show(log);
+                if (!string.IsNullOrEmpty(TxtMdtFilePath.Text))
+                {
+                    MongoGeneralLogic.ExportToDump(server, DbName, TxtMdtFilePath.Text, Collections, out log);
+                    log = string.IsNullOrEmpty(log) ? "Done" : "";
+                    MessageBox.Show(log);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Please Select Save Path");
+                }
+
             }
         }
 
@@ -79,20 +96,37 @@ namespace MongoDbTools
         private void ExportOptionChanged(object sender, EventArgs e)
         {
             PnlExportFile.Visible = RdBackUpFile.Checked;
-            PathPnl.Visible = RdJson.Checked; 
+            PathPnl.Visible = RdJson.Checked;
         }
-        public ExportFrm(string ConnectionString, string DbName)
+        public ExportFrm(MDTServer server, string DbName, List<string> Collection)
         {
             InitializeComponent();
-            this.ConnectionString = ConnectionString;
+            this.server = server;
             this.DbName = DbName;
             this.Text += " - " + DbName;
-            var collections = MongoGeneralLogic.GetDatabaseCollections(ConnectionString, DbName);
+            var collections = MongoGeneralLogic.GetDatabaseCollections(server.ConnectionString, DbName);
             foreach (var item in collections)
             {
-                CollectionChk.Items.Add(item, true);
+                bool ChekItem = !Collection.Any() || Collection.Contains(item);
+                if (Collection.Any())
+                {
+                    CollectionChk.Items.Add(item, ChekItem);
+                }
+                else
+                {
+                    CollectionChk.Items.Add(item, true);
+                }
             }
-            ChkAll.Checked = true;
+            ChkAll.Checked = !Collection.Any();
+        }
+
+        private void BtnBrowse_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fwd = new FolderBrowserDialog();
+            if (fwd.ShowDialog() == DialogResult.OK)
+            {
+                txtSavePath.Text = fwd.SelectedPath;
+            }
         }
     }
 }

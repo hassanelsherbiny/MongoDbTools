@@ -25,16 +25,20 @@ namespace MongoConnection.Data
         public string Password { get; set; }
 
         public string AuthDb { get; set; }
+        string connectionStr;
         public string ConnectionString
         {
             get
-            {
-                string connectionStr = "";
-                if (!UseAuth)
+            { 
+                if (!UseAuth&&string.IsNullOrEmpty(connectionStr))
                     connectionStr = string.Format("mongodb://{0}:{1}/", Server, Port);
 
                 //Todo Handle Auth Connection String
                 return connectionStr;
+            }
+            set
+            {
+                connectionStr = value;
             }
         }
     }

@@ -17,6 +17,7 @@ using MongoDB.Bson.Serialization;
 using System.Windows.Forms;
 using MongoDbTools;
 using System.IO.Compression;
+using System.Data;
 
 namespace MongoConnection.Logic
 {
@@ -169,12 +170,34 @@ namespace MongoConnection.Logic
 
         }
 
-        public static List<object> GetCollecyion(string serverConnectionString, string DbName, string CollectionName)
+        public static List<IDictionary<string, object>> GetCollection(string serverConnectionString, string DbName, string CollectionName, out long bytesSize)
         {
             MongoClient client = new MongoClient(serverConnectionString);
+            var collection = client.GetDatabase(DbName).GetCollection<BsonDocument>(CollectionName).Find(x => true).ToList();
+            bytesSize = collection.Sum(x => x.ToBson().Length);
+            return client.GetDatabase(DbName).GetCollection<IDictionary<string, object>>(CollectionName).Find(x => true).ToList();
+        }
 
-            return client.GetDatabase(DbName).GetCollection<object>(CollectionName).Find(x => true).ToList();
+        public static DataTable ConvertToDataTable(List<IDictionary<string, object>> items)
+        {
+            DataTable tbl = new DataTable();
+            foreach (var item in items)
+            {
+                //PrepareTableCols(item, tbl);
+                var row = tbl.NewRow();
+                var keys = item.Keys.ToList();
+                foreach (var key in keys)
+                {
+                    if (!tbl.Columns.Contains(key))
+                    {
+                        tbl.Columns.Add(key);
+                    }
+                    row[key] = item[key];
+                }
 
+                tbl.Rows.Add(row);
+            }
+            return tbl;
         }
         #endregion
 
@@ -209,9 +232,10 @@ namespace MongoConnection.Logic
         #region Export & Import
 
         public static void ExportToJson(string serverConnectionString, string dbName,
-           string SaveFolder, List<string> Collections, string MongoPath, bool FormatJson,
+           string SaveFolder, List<string> Collections, bool FormatJson, bool JsonArray,
            out string log)
         {
+            var MongoPath = GetMongoPath();
             string Log = "";
             MongoClient client = new MongoClient(serverConnectionString);
             //Prepare Directory
@@ -225,7 +249,7 @@ namespace MongoConnection.Logic
                 try
                 {
                     string outputfile = Path.Combine(TempDir, collectionName + ".json");
-                    string command = string.Format("-d {0} -c {1} --jsonArray {3} --out {2} ", dbName, collectionName, outputfile, FormatJson ? "--pretty" : "");
+                    string command = string.Format("-d {0} -c {1} {4} {3} --out {2} ", dbName, collectionName, outputfile, FormatJson ? "--pretty" : "", JsonArray ? "--jsonArray" : "");
                     RuMongoProcess("mongoexport.exe", MongoPath, command);
 
                     //Move Output from temp
@@ -263,17 +287,17 @@ namespace MongoConnection.Logic
             exportProcess.WaitForExit();
         }
 
-        public static void ExportToDump(string serverConnectionString, string dbName,
-         string OutPutFile, List<string> Collections, string MongoPath,
+        public static void ExportToDump(MDTServer server, string dbName,
+         string OutPutFile, List<string> Collections,
          out string log)
         {
+            var MongoPath = GetMongoPath();
             string Log = "";
-            MongoClient client = new MongoClient(serverConnectionString);
             //Prepare Directory 
             //Create Temp Dir to export to
             var TempDir = CreateTempDir();
 
-            string command = string.Format("-d {0} -o {1} ", dbName, TempDir);
+            string command = string.Format("-d {0} -o {1} --host \"{2}:{3}\"", dbName, TempDir, server.Server, server.Port);
             RuMongoProcess("mongodump", MongoPath, command);
             string TempOutPutFile = TempDir + ".MDT";
             ZipFile.CreateFromDirectory(Path.Combine(TempDir, dbName), TempOutPutFile);
@@ -289,21 +313,89 @@ namespace MongoConnection.Logic
             log = Log;
         }
 
-        public static void ImportFromDump(string ServerConnectionString, string DbName, string FilePath, bool DropIfExist)
+        public static void ImportFromDump(MDTServer server, string DbName, string FilePath, bool DropIfExist)
         {
             //Unzip File To Temp
             var TempPath = CreateTempDir();
             ZipFile.ExtractToDirectory(FilePath, TempPath);
             var MongoPath = GetMongoPath();
-            //Drop If Exist TODO
-            string command = string.Format("-d {0} {1}", DbName, TempPath);
+            if (DropIfExist)
+            {
+                DropDataBase(server.ConnectionString, DbName);
+            }
+            string command = string.Format("-d {0} {1} --host \"{2}:{3}\"", DbName, TempPath, server.Server, server.Port);
             RuMongoProcess("mongorestore.exe", MongoPath, command);
+        }
+        public static void ImportFromJson(MDTServer server, string DbName, List<string> Files, bool DropIfExist)
+        {
+            var tempPath = CreateTempDir();
+            var MongoPath = GetMongoPath();
+            foreach (var FilePath in Files)
+            {
+                var CollectionName = Path.GetFileNameWithoutExtension(FilePath);
+                var NewPath = Path.Combine(tempPath, Path.GetFileName(FilePath));
+                if (DropIfExist)
+                    DropCollection(server.ConnectionString, DbName, CollectionName);
+                File.Copy(FilePath, NewPath);
+                string command = string.Format("--db {0} --collection {1} {2} --host \"{3}:{4}\"", DbName, CollectionName, NewPath, server.Server, server.Port);
+                RuMongoProcess("mongoimport.exe", MongoPath, command);
+                File.Delete(NewPath);
+            }
+            try
+            {
+                Directory.Delete(tempPath);
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         private static string GetMongoPath()
         {
-            //TODO Make Dynamic
-            return @"C:\Program Files\MongoDB\Server\3.4\bin\";
+            var MongoPath = @"C:\Program Files\MongoDB\Server\";
+            if (Directory.Exists(MongoPath))
+            {
+                var firstMongoVersion = Directory.GetDirectories(MongoPath).FirstOrDefault();
+                MongoPath = Path.Combine(firstMongoVersion, "bin");
+            }
+            else
+            {
+                MessageBox.Show("Please Select Mongo Installation Path");
+                FolderBrowserDialog fbd = new FolderBrowserDialog();
+                if (fbd.ShowDialog() == DialogResult.OK)
+                {
+                    MongoPath = fbd.SelectedPath;
+                    CorrectMongoPath(MongoPath);
+                }
+            }
+            return MongoPath;
+        }
+
+        public static void DropCollection(string serverConnectionString, string dbName, string collectionName)
+        {
+            MongoClient client = new MongoClient(serverConnectionString);
+            client.GetDatabase(dbName).DropCollection(collectionName);
+        }
+
+        public static bool DeleteDocument(string serverConnectionString, string dbName, string collectionName, string id)
+        {
+            MongoClient client = new MongoClient(serverConnectionString);
+            var collection = client.GetDatabase(dbName).GetCollection<IDictionary<string, object>>(collectionName);
+
+            var filter = Builders<IDictionary<string, object>>.Filter.Eq(s => s["_id"], id);
+            var Deleteone = collection.DeleteOne(filter);
+            return Deleteone.DeletedCount > 0;
+        }
+
+        static string CorrectMongoPath(string MongoPath)
+        {
+
+            if (!MongoPath.Contains("bin"))
+            {
+
+            }
+            return MongoPath;
+
         }
 
         private static string CreateTempDir()
@@ -317,7 +409,13 @@ namespace MongoConnection.Logic
             Directory.CreateDirectory(TempDirPath);
             return TempDirPath;
         }
-
+        public static void UpdateCollection(string id, IDictionary<string, object> item, string ServerConnectionString, string DbName, string collectionName)
+        {
+            MongoClient client2 = new MongoClient(ServerConnectionString);
+            var collection = client2.GetDatabase(DbName).GetCollection<IDictionary<string, object>>(collectionName);
+            var filter = Builders<IDictionary<string, object>>.Filter.Eq(s => s["_id"], id);
+            collection.ReplaceOne(filter, item);
+        }
         public static void ExportToDb(string serverConnectionString, string dbName,
         List<string> Collections,
            string Server2ConnectionString, string Db2Name, out string log)
@@ -373,5 +471,9 @@ namespace MongoConnection.Logic
             log = Log;
         }
         #endregion
+    }
+    public interface baseobject
+    {
+        string _id { get; set; }
     }
 }

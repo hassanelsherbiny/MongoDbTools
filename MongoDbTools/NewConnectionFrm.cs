@@ -13,11 +13,24 @@ namespace MongoDbTools
 {
     public partial class NewConnectionFrm : Form
     {
+        int? OnEditServer;
         public NewConnectionFrm()
         {
             InitializeComponent();
             RdAuth_CheckedChanged(null, null);
             CheckForIllegalCrossThreadCalls = false;
+        }
+        public NewConnectionFrm(int ServerIndex) : this()
+        {
+            var server = Session.Settings.Servers[ServerIndex];
+            OnEditServer =  ServerIndex;
+            TxtAuthDb.Text = server.AuthDb;
+            TxtPassword.Text = server.Password;
+            NumPort.Value = server.Port;
+            TxtServer.Text = server.Server;
+            TxtConnectionName.Text = server.ConnectionAlias;
+            RdAuth.Checked = server.UseAuth;
+            RdAuth_CheckedChanged(null, null);
         }
         MDTServer GetServer()
         {
@@ -101,7 +114,10 @@ namespace MongoDbTools
         {
             if (ValidateInputs())
             {
-                Session.Settings.Servers.Add(GetServer());
+                if (OnEditServer.HasValue)
+                    Session.Settings.Servers[OnEditServer.Value] = GetServer();
+                else
+                    Session.Settings.Servers.Add(GetServer());
                 Session.Settings.Save();
                 Close();
             }

@@ -37,12 +37,10 @@
   <PropertyGroup>
     <ApplicationIcon>ToolsIcon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Printing.v18.2.Core, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Sparkline.v18.2.Core, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Utils.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraEditors.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DnsClient, Version=1.0.7.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
       <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
     </Reference>
@@ -92,6 +90,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionExplorerTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CollectionExplorerTab.Designer.cs">
+      <DependentUpon>CollectionExplorerTab.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConnectionsFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +159,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
+    <EmbeddedResource Include="CollectionExplorerTab.resx">
+      <DependentUpon>CollectionExplorerTab.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConnectionsFrm.resx">
       <DependentUpon>ConnectionsFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -193,6 +200,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\MongoConnection.Data.MDTServer.datasource" />
     <None Include="Properties\Settings.settings">
@@ -272,6 +282,19 @@
     <None Include="Resources\time_16x16.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\doublefirst_32x32.png" />
+    <None Include="Resources\doublelast_32x32.png" />
+    <None Include="Resources\doublenext_32x32.png" />
+    <None Include="Resources\doubleprev_32x32.png" />
+    <None Include="Resources\refresh_32x32.png" />
+    <None Include="Resources\delete_16x16.png" />
+    <None Include="Resources\marqueezoom_16x16.png" />
+    <None Include="Resources\addnewdatasource_16x16.png" />
+    <None Include="Resources\deletedatasource_16x16.png" />
+    <None Include="Resources\refresh_16x16.png" />
+    <None Include="Resources\export_16x16.png" />
+    <None Include="Resources\converttorange_16x16.png" />
+    <None Include="Resources\deletedatasource2_32x32.png" />
     <Content Include="ToolsIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

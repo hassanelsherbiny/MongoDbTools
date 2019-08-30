@@ -1,4 +1,5 @@
-﻿using MongoConnection.Logic;
+﻿using MongoConnection.Data;
+using MongoConnection.Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,59 +15,54 @@ namespace MongoDbTools
 {
     public partial class ImportFromJsonFrm : Form
     {
-        string ServerConnection, DbName;
-        public ImportFromJsonFrm(string ServerConnection, string DbName)
+        List<string> SelectedFiles;
+        MDTServer server;
+        public ImportFromJsonFrm(MDTServer server)
         {
             InitializeComponent();
-            this.ServerConnection = ServerConnection;
-            this.DbName = DbName;
+            this.server = server;
         }
-
-        private void ChkAll_CheckedChanged(object sender, EventArgs e)
+        public ImportFromJsonFrm(string DbName, MDTServer server) : this(server)
         {
-            for (int i = 0; i < FilesChk.Items.Count; i++)
-            {
-                if (FilesChk.GetItemChecked(i) != ChkAll.Checked)
-                {
-                    FilesChk.SetItemCheckState(i, ChkAll.Checked ? CheckState.Checked : CheckState.Unchecked);
-                }
-            }
-        }
-
-        private void BtnSelectFiles_Click(object sender, EventArgs e)
-        {
-            if (Ofd.ShowDialog() == DialogResult.OK)
-            {
-                FilesChk.Items.Clear();
-                FilesChk.DisplayMember = "Text";
-                FilesChk.ValueMember = "Value";
-
-                foreach (var file in Ofd.FileNames)
-                {
-                    FilesChk.Items.Add(new { Text = Path.GetFileNameWithoutExtension(file), Value = file });
-                }
-            }
+            this.TxtDbName.Text = DbName;
         }
 
         private void BtnImport_Click(object sender, EventArgs e)
         {
-            var SelectedFiles = new List<string>();
-            for (int i = 0; i < FilesChk.Items.Count; i++)
+            if (!string.IsNullOrEmpty(TxtPath.Text))
             {
-                if (FilesChk.GetItemChecked(i))
-                {
-                    SelectedFiles.Add(((dynamic)FilesChk.Items[i]).Value);
-                }
-            }
-            if (SelectedFiles.Any())
-            {
-                MongoGeneralLogic.Import(DbName, SelectedFiles, ServerConnection);
+                LoadingImg.Visible = true;
+                LoadingLbl.Visible = true;
+                backgroundWorker1.RunWorkerAsync();
             }
             else
             {
-                MessageBox.Show("Please Select Files");
+                MessageBox.Show("BackUp File Doesn't Exist");
             }
+        }
 
+        private void BtnSelectFile_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog();
+            ofd.Multiselect = true;
+            ofd.Filter = "Json files|*.json";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                TxtPath.Text = string.Join(",", ofd.FileNames.Select(x => Path.GetFileNameWithoutExtension(x)).ToList());
+                SelectedFiles = ofd.FileNames.ToList();
+            }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            MongoGeneralLogic.ImportFromJson(server, TxtDbName.Text, SelectedFiles, ChkDropIfExist.Checked);
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            MessageBox.Show("Done");
+            Close();
         }
     }
 }
