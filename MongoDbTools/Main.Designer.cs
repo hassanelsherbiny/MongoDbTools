@@ -33,6 +33,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.BtnConnect = new System.Windows.Forms.ToolStripButton();
             this.BtnDisconnect = new System.Windows.Forms.ToolStripButton();
+            this.BtnMigrator = new System.Windows.Forms.ToolStripButton();
             this.ConnectionImageList = new System.Windows.Forms.ImageList(this.components);
             this.DbContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.BtnImport = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,6 +69,7 @@
             this.BtnCloseAllButThis = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnCloseTabsToRight = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnCloseTabsToLeft = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtnRpt = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.DbContextMenu.SuspendLayout();
             this.ServerContextMenu.SuspendLayout();
@@ -87,7 +89,8 @@
             this.toolStrip1.BackColor = System.Drawing.Color.White;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BtnConnect,
-            this.BtnDisconnect});
+            this.BtnDisconnect,
+            this.BtnMigrator});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1124, 50);
@@ -114,6 +117,16 @@
             this.BtnDisconnect.Text = "Disconnect";
             this.BtnDisconnect.Click += new System.EventHandler(this.BtnDisconnect_Click);
             // 
+            // BtnMigrator
+            // 
+            this.BtnMigrator.Image = global::MongoDbTools.Properties.Resources.sortgroupheader_32x32;
+            this.BtnMigrator.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.BtnMigrator.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BtnMigrator.Name = "BtnMigrator";
+            this.BtnMigrator.Size = new System.Drawing.Size(89, 47);
+            this.BtnMigrator.Text = "Migrator";
+            this.BtnMigrator.Click += new System.EventHandler(this.BtnMigrator_Click);
+            // 
             // ConnectionImageList
             // 
             this.ConnectionImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ConnectionImageList.ImageStream")));
@@ -128,15 +141,16 @@
             this.BtnImport,
             this.BtnImportJson,
             this.BtnExportDb,
+            this.BtnRpt,
             this.BtnDropDatabase});
             this.DbContextMenu.Name = "DbContextMenu";
-            this.DbContextMenu.Size = new System.Drawing.Size(176, 92);
+            this.DbContextMenu.Size = new System.Drawing.Size(181, 136);
             // 
             // BtnImport
             // 
             this.BtnImport.Image = global::MongoDbTools.Properties.Resources.converttorange_16x16;
             this.BtnImport.Name = "BtnImport";
-            this.BtnImport.Size = new System.Drawing.Size(175, 22);
+            this.BtnImport.Size = new System.Drawing.Size(180, 22);
             this.BtnImport.Text = "Import";
             this.BtnImport.Click += new System.EventHandler(this.BtnImport_Click);
             // 
@@ -144,7 +158,7 @@
             // 
             this.BtnImportJson.Image = global::MongoDbTools.Properties.Resources.converttorange_16x16;
             this.BtnImportJson.Name = "BtnImportJson";
-            this.BtnImportJson.Size = new System.Drawing.Size(175, 22);
+            this.BtnImportJson.Size = new System.Drawing.Size(180, 22);
             this.BtnImportJson.Text = "Import From Json";
             this.BtnImportJson.Click += new System.EventHandler(this.BtnImportJson_Click);
             // 
@@ -152,7 +166,7 @@
             // 
             this.BtnExportDb.Image = global::MongoDbTools.Properties.Resources.export_16x16;
             this.BtnExportDb.Name = "BtnExportDb";
-            this.BtnExportDb.Size = new System.Drawing.Size(175, 22);
+            this.BtnExportDb.Size = new System.Drawing.Size(180, 22);
             this.BtnExportDb.Text = "Export";
             this.BtnExportDb.Click += new System.EventHandler(this.BtnExportDb_Click);
             // 
@@ -161,7 +175,7 @@
             this.BtnDropDatabase.Image = global::MongoDbTools.Properties.Resources.delete_16x16;
             this.BtnDropDatabase.Name = "BtnDropDatabase";
             this.BtnDropDatabase.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.BtnDropDatabase.Size = new System.Drawing.Size(175, 22);
+            this.BtnDropDatabase.Size = new System.Drawing.Size(180, 22);
             this.BtnDropDatabase.Text = "Drop Database";
             this.BtnDropDatabase.Click += new System.EventHandler(this.BtnDropDatabase_Click);
             // 
@@ -417,6 +431,13 @@
             this.BtnCloseTabsToLeft.Text = "Close All To Left";
             this.BtnCloseTabsToLeft.Click += new System.EventHandler(this.BtnCloseTabsToLeft_Click);
             // 
+            // BtnRpt
+            // 
+            this.BtnRpt.Name = "BtnRpt";
+            this.BtnRpt.Size = new System.Drawing.Size(180, 22);
+            this.BtnRpt.Text = "Report";
+            this.BtnRpt.Click += new System.EventHandler(this.BtnRpt_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -491,6 +512,8 @@
         private System.Windows.Forms.ToolStripMenuItem BtnCloseAllButThis;
         private System.Windows.Forms.ToolStripMenuItem BtnCloseTabsToRight;
         private System.Windows.Forms.ToolStripMenuItem BtnCloseTabsToLeft;
+        private System.Windows.Forms.ToolStripButton BtnMigrator;
+        private System.Windows.Forms.ToolStripMenuItem BtnRpt;
     }
 }
 

@@ -21,7 +21,6 @@ namespace MongoDbTools
             CheckForIllegalCrossThreadCalls = false;
             CollectionExplorer.DrawMode = TabDrawMode.OwnerDrawFixed;
             CollectionExplorer.DrawItem += CollectionExplorer_DrawItem;
-
             CollectionExplorer.Padding = new Point(10, 3);
 
         }
@@ -426,6 +425,29 @@ namespace MongoDbTools
         }
 
         #endregion
+
+        private void BtnMigrator_Click(object sender, EventArgs e)
+        {
+            FrmMigrations frm = new FrmMigrations();
+            if (ConnectionTree.SelectedNode is DbTreeNode)
+            {
+                var dbNode = ConnectionTree.SelectedNode as DbTreeNode; 
+                frm.SelectedMigrator = new MDTMigratorFile()
+                {
+                    SourceDb = dbNode.DbName,
+                    SourceServer = dbNode.Server
+                };
+              
+            }
+            frm.ShowDialog();
+        }
+
+        private void BtnRpt_Click(object sender, EventArgs e)
+        {
+            var dbNode = ConnectionTree.SelectedNode as DbTreeNode;
+            FrmCollectionRpt frm = new FrmCollectionRpt(dbNode.Server, dbNode.DbName);
+            frm.ShowDialog();
+        }
     }
 }
 

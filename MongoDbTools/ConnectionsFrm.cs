@@ -1,4 +1,5 @@
-﻿using MongoConnection.Logic;
+﻿using MongoConnection.Data;
+using MongoConnection.Logic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,17 @@ namespace MongoDbTools
 {
     public partial class ConnectionsFrm : Form
     {
+        public bool AsSelection
+        {
+            get { return BtnConnect.Text == "Select"; }
+            set
+            {
+                if (value)
+                {
+                    BtnConnect.Text = "Select";
+                }
+            }
+        }
         public ConnectionsFrm()
         {
             InitializeComponent();
@@ -37,44 +49,59 @@ namespace MongoDbTools
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-
-           
-            if (ConnectionsGrid.SelectedRows.Count == 0)
+            ConnectionsGrid.Enabled = BtnConnect.Enabled = false;
+            int ConnectionIndex = ConnectionsGrid.Rows.IndexOf(ConnectionsGrid.SelectedRows[0]);
+            var server = Session.Settings.Servers[ConnectionIndex];
+            if (MongoGeneralLogic.TryToConnectToServer(server))
             {
-                LoadingImg.Visible = false;
-                MessageBox.Show("Please Select Sever To Connect To"); 
+                Session.CurrentConnections.Add(server);
+                DialogResult = DialogResult.OK;
+                Close();
             }
             else
             {
-                ConnectionsGrid.Enabled = BtnConnect.Enabled = false;
-                int ConnectionIndex = ConnectionsGrid.Rows.IndexOf(ConnectionsGrid.SelectedRows[0]);
-                var server = Session.Settings.Servers[ConnectionIndex];
-                if (MongoGeneralLogic.TryToConnectToServer(server))
-                {
-                    Session.CurrentConnections.Add(server);
-                    DialogResult = DialogResult.OK;
-                    Close();
-                }
-                else
-                {
-                    LoadingImg.Visible = false;
-                    ConnectionsGrid.Enabled = BtnConnect.Enabled = true;
-                    MessageBox.Show("Failed To Connect To Server");
-
-                }
+                LoadingImg.Visible = false;
+                ConnectionsGrid.Enabled = BtnConnect.Enabled = true;
+                MessageBox.Show("Failed To Connect To Server");
             }
         }
 
         private void ConnectionsGrid_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            LoadingImg.Visible = true;
-            backgroundWorker1.RunWorkerAsync();
+            BtnConnect_Click(null, null);
         }
 
         private void BtnConnect_Click(object sender, EventArgs e)
         {
-            LoadingImg.Visible = true;
-            backgroundWorker1.RunWorkerAsync();
+            if (AsSelection)
+            {
+                if (ConnectionsGrid.SelectedRows.Count == 0)
+                {
+                    LoadingImg.Visible = false;
+                    MessageBox.Show("Please Select Sever To Connect To");
+                }
+                else
+                {
+                    ConnectionsGrid.Enabled = BtnConnect.Enabled = false;
+                    int ConnectionIndex = ConnectionsGrid.Rows.IndexOf(ConnectionsGrid.SelectedRows[0]);
+                    SelectedServer = Session.Settings.Servers[ConnectionIndex];
+                    Close();
+                }
+            }
+            else
+            {
+                if (ConnectionsGrid.SelectedRows.Count == 0)
+                {
+                    LoadingImg.Visible = false;
+                    MessageBox.Show("Please Select Sever To Connect To");
+                }
+                else
+                {
+                    LoadingImg.Visible = true;
+                    backgroundWorker1.RunWorkerAsync();
+                }
+            }
+
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -86,7 +113,7 @@ namespace MongoDbTools
         {
             if (ConnectionsGrid.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Please Select Sever To Connect To");
+                MessageBox.Show("Please Select Sever To Delete");
             }
             else
             {
@@ -118,5 +145,7 @@ namespace MongoDbTools
                 ConnectionsGrid.Rows[hti.RowIndex].Selected = true;
             }
         }
+        public MDTServer SelectedServer { get; set; }
+        
     }
 }

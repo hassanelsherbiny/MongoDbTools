@@ -35,6 +35,11 @@
             this.BtnEdit = new System.Windows.Forms.ToolStripButton();
             this.BtnDelete = new System.Windows.Forms.ToolStripButton();
             this.ConnectionsGrid = new System.Windows.Forms.DataGridView();
+            this.IconCol = new System.Windows.Forms.DataGridViewImageColumn();
+            this.connectionAliasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serverDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.portDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.useAuthDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ConnectMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.EditMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,11 +51,6 @@
             this.BtnConnect = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.IconCol = new System.Windows.Forms.DataGridViewImageColumn();
-            this.connectionAliasDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.serverDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.portDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.useAuthDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConnectionsGrid)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -121,6 +121,37 @@
             this.ConnectionsGrid.TabIndex = 1;
             this.ConnectionsGrid.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.ConnectionsGrid_CellMouseDoubleClick);
             this.ConnectionsGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ConnectionsGrid_MouseDown);
+            // 
+            // IconCol
+            // 
+            this.IconCol.FillWeight = 20F;
+            this.IconCol.HeaderText = "";
+            this.IconCol.Image = global::MongoDbTools.Properties.Resources.database_16x16;
+            this.IconCol.Name = "IconCol";
+            // 
+            // connectionAliasDataGridViewTextBoxColumn
+            // 
+            this.connectionAliasDataGridViewTextBoxColumn.DataPropertyName = "ConnectionAlias";
+            this.connectionAliasDataGridViewTextBoxColumn.HeaderText = "ConnectionAlias";
+            this.connectionAliasDataGridViewTextBoxColumn.Name = "connectionAliasDataGridViewTextBoxColumn";
+            // 
+            // serverDataGridViewTextBoxColumn
+            // 
+            this.serverDataGridViewTextBoxColumn.DataPropertyName = "Server";
+            this.serverDataGridViewTextBoxColumn.HeaderText = "Server";
+            this.serverDataGridViewTextBoxColumn.Name = "serverDataGridViewTextBoxColumn";
+            // 
+            // portDataGridViewTextBoxColumn
+            // 
+            this.portDataGridViewTextBoxColumn.DataPropertyName = "Port";
+            this.portDataGridViewTextBoxColumn.HeaderText = "Port";
+            this.portDataGridViewTextBoxColumn.Name = "portDataGridViewTextBoxColumn";
+            // 
+            // useAuthDataGridViewCheckBoxColumn
+            // 
+            this.useAuthDataGridViewCheckBoxColumn.DataPropertyName = "UseAuth";
+            this.useAuthDataGridViewCheckBoxColumn.HeaderText = "Use Auth";
+            this.useAuthDataGridViewCheckBoxColumn.Name = "useAuthDataGridViewCheckBoxColumn";
             // 
             // contextMenuStrip1
             // 
@@ -222,37 +253,6 @@
             this.dataGridViewImageColumn1.Image = global::MongoDbTools.Properties.Resources.database_16x16;
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.Width = 757;
-            // 
-            // IconCol
-            // 
-            this.IconCol.FillWeight = 20F;
-            this.IconCol.HeaderText = "";
-            this.IconCol.Image = global::MongoDbTools.Properties.Resources.database_16x16;
-            this.IconCol.Name = "IconCol";
-            // 
-            // connectionAliasDataGridViewTextBoxColumn
-            // 
-            this.connectionAliasDataGridViewTextBoxColumn.DataPropertyName = "ConnectionAlias";
-            this.connectionAliasDataGridViewTextBoxColumn.HeaderText = "ConnectionAlias";
-            this.connectionAliasDataGridViewTextBoxColumn.Name = "connectionAliasDataGridViewTextBoxColumn";
-            // 
-            // serverDataGridViewTextBoxColumn
-            // 
-            this.serverDataGridViewTextBoxColumn.DataPropertyName = "Server";
-            this.serverDataGridViewTextBoxColumn.HeaderText = "Server";
-            this.serverDataGridViewTextBoxColumn.Name = "serverDataGridViewTextBoxColumn";
-            // 
-            // portDataGridViewTextBoxColumn
-            // 
-            this.portDataGridViewTextBoxColumn.DataPropertyName = "Port";
-            this.portDataGridViewTextBoxColumn.HeaderText = "Port";
-            this.portDataGridViewTextBoxColumn.Name = "portDataGridViewTextBoxColumn";
-            // 
-            // useAuthDataGridViewCheckBoxColumn
-            // 
-            this.useAuthDataGridViewCheckBoxColumn.DataPropertyName = "UseAuth";
-            this.useAuthDataGridViewCheckBoxColumn.HeaderText = "Use Auth";
-            this.useAuthDataGridViewCheckBoxColumn.Name = "useAuthDataGridViewCheckBoxColumn";
             // 
             // ConnectionsFrm
             // 

@@ -177,7 +177,34 @@ namespace MongoConnection.Logic
             bytesSize = collection.Sum(x => x.ToBson().Length);
             return client.GetDatabase(DbName).GetCollection<IDictionary<string, object>>(CollectionName).Find(x => true).ToList();
         }
+        public static List<RptData> GetCollectionReport(MDTServer server, string DbName)
+        {
+            MongoClient client = new MongoClient(server.ConnectionString);
+            var lst = new List<RptData>();
+            var DbCollections = MongoGeneralLogic.GetDatabaseCollections(server.ConnectionString, DbName);
+            foreach (var item in DbCollections)
+            {
+                var collection = client.GetDatabase(DbName).GetCollection<BsonDocument>(item).Find(x => true).ToList();
+                string Size = "";
+                float bytesSizeF = collection.Sum(x => x.ToBson().Length);
+                if (bytesSizeF < 1000)
+                    Size = Math.Round(bytesSizeF, 2) + " Bytes";
+                else if (bytesSizeF < 1000 * 1000)
+                    Size = Math.Round(bytesSizeF / 1000, 2) + " KB";
+                else if (bytesSizeF < 1000 * 1000 * 1000)
+                    Size = Math.Round(bytesSizeF / 1000000, 2) + " MB";
 
+                lst.Add(new RptData()
+                {
+                    CollectionName = item,
+                    SizeStr = Size,
+                    Size= bytesSizeF,
+                    Count = collection.Count
+            });
+            }
+
+            return lst.OrderByDescending(x=>x.Size).ToList();
+        }
         public static DataTable ConvertToDataTable(List<IDictionary<string, object>> items)
         {
             DataTable tbl = new DataTable();
@@ -231,15 +258,15 @@ namespace MongoConnection.Logic
 
         #region Export & Import
 
-        public static void ExportToJson(string serverConnectionString, string dbName,
+        public static string ExportToJson(string serverConnectionString, string dbName,
            string SaveFolder, List<string> Collections, bool FormatJson, bool JsonArray,
-           out string log)
+           out string log, bool OnlyAtTemp = false)
         {
             var MongoPath = GetMongoPath();
             string Log = "";
             MongoClient client = new MongoClient(serverConnectionString);
             //Prepare Directory
-            if (!Directory.Exists(SaveFolder))
+            if (!Directory.Exists(SaveFolder) && !string.IsNullOrEmpty(SaveFolder))
                 Directory.CreateDirectory(SaveFolder);
             //Create Temp Dir to export to
             var TempDir = CreateTempDir();
@@ -251,26 +278,30 @@ namespace MongoConnection.Logic
                     string outputfile = Path.Combine(TempDir, collectionName + ".json");
                     string command = string.Format("-d {0} -c {1} {4} {3} --out {2} ", dbName, collectionName, outputfile, FormatJson ? "--pretty" : "", JsonArray ? "--jsonArray" : "");
                     RuMongoProcess("mongoexport.exe", MongoPath, command);
-
-                    //Move Output from temp
-                    File.Move(outputfile, Path.Combine(SaveFolder, Path.GetFileName(outputfile)));
-
+                    if (!OnlyAtTemp)
+                    {
+                        //Move Output from temp
+                        File.Move(outputfile, Path.Combine(SaveFolder, Path.GetFileName(outputfile)));
+                    }
                 }
                 catch (Exception ex)
                 {
                     Log += dbName + "\n" + ex;
                 }
             });
+            if (!OnlyAtTemp)
 
-
-            try
             {
-                Directory.Delete(TempDir, true);
-            }
-            catch
-            {
+                try
+                {
+                    Directory.Delete(TempDir, true);
+                }
+                catch
+                {
+                }
             }
             log = Log;
+            return TempDir;
         }
 
         private static void RuMongoProcess(string porgram, string MongoPath, string command)

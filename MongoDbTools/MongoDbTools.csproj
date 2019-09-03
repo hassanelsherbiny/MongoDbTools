@@ -41,6 +41,11 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v18.2.Core, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v18.2.Core, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DnsClient, Version=1.0.7.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
       <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
     </Reference>
@@ -103,6 +108,7 @@
       <DependentUpon>ConnectionsFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomTreeNode.cs" />
+    <Compile Include="Data\MDTMigratorFile.cs" />
     <Compile Include="Data\MDTDataBase.cs" />
     <Compile Include="Data\MDTExportItem.cs" />
     <Compile Include="Data\MDTServer.cs" />
@@ -118,6 +124,24 @@
     </Compile>
     <Compile Include="ExportToDbFrm.Designer.cs">
       <DependentUpon>ExportToDbFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCollectionRpt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCollectionRpt.Designer.cs">
+      <DependentUpon>FrmCollectionRpt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMigration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMigration.Designer.cs">
+      <DependentUpon>FrmMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMigrations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMigrations.Designer.cs">
+      <DependentUpon>FrmMigrations.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportDumpFrm.cs">
       <SubType>Form</SubType>
@@ -170,6 +194,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ExportToDbFrm.resx">
       <DependentUpon>ExportToDbFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCollectionRpt.resx">
+      <DependentUpon>FrmCollectionRpt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMigration.resx">
+      <DependentUpon>FrmMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMigrations.resx">
+      <DependentUpon>FrmMigrations.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportDumpFrm.resx">
       <DependentUpon>ImportDumpFrm.cs</DependentUpon>
@@ -295,6 +328,9 @@
     <None Include="Resources\export_16x16.png" />
     <None Include="Resources\converttorange_16x16.png" />
     <None Include="Resources\deletedatasource2_32x32.png" />
+    <None Include="Resources\sortgroupheader_32x32.png" />
+    <None Include="Resources\save_16x16.png" />
+    <None Include="Resources\unmergecells_16x16.png" />
     <Content Include="ToolsIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
