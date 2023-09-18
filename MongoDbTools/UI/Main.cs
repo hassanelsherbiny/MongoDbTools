@@ -22,7 +22,6 @@ namespace MongoDbTools
             CollectionExplorer.DrawMode = TabDrawMode.OwnerDrawFixed;
             CollectionExplorer.DrawItem += CollectionExplorer_DrawItem;
             CollectionExplorer.Padding = new Point(10, 3);
-
         }
         private void CollectionExplorer_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e)
         {
@@ -36,10 +35,7 @@ namespace MongoDbTools
                 Brush TitleBrush = new SolidBrush(Color.Black);
                 Font f = this.Font;
                 string title = this.CollectionExplorer.TabPages[e.Index].Text;
-
                 e.Graphics.DrawString(title, f, TitleBrush, new PointF(r.X, r.Y));
-
-
                 e.Graphics.DrawImage(img, new Point(r.X + (this.CollectionExplorer.GetTabRect(e.Index).Width - _imageLocation.X), _imageLocation.Y));
 
             }
@@ -219,6 +215,7 @@ namespace MongoDbTools
             var dbNode = ConnectionTree.SelectedNode as DbTreeNode;
             ExportFrm frm = new ExportFrm(dbNode.Server, dbNode.DbName, new List<string>());
             frm.ShowDialog();
+            LogTxt.Text = frm.Log;
         }
 
 
@@ -348,6 +345,7 @@ namespace MongoDbTools
             var collectionNode = ConnectionTree.SelectedNode as CollectionTreeNode;
             ExportFrm frm = new ExportFrm(collectionNode.Server, collectionNode.DbName, new List<string>() { collectionNode.CollectionName });
             frm.ShowDialog();
+            LogTxt.Text = frm.Log;
         }
 
         private void BtnServerDisconnect_Click(object sender, EventArgs e)
@@ -362,20 +360,22 @@ namespace MongoDbTools
         void DisconnectServer()
         {
             var currentServerNode = ConnectionTree.SelectedNode as BaseTreeNode;
-            if (currentServerNode is DbTreeNode)
-                currentServerNode = currentServerNode.Parent as BaseTreeNode;
-            if (currentServerNode is CollectionTreeNode)
-                currentServerNode = currentServerNode.Parent.Parent as BaseTreeNode;
-            ConnectionTree.Nodes.Remove(currentServerNode);
-            foreach (Control item in CollectionExplorer.TabPages)
+            if (currentServerNode != null)
             {
-                if ((item.Controls[0] as CollectionExplorerTab).Server == currentServerNode.Server)
+                if (currentServerNode is DbTreeNode)
+                    currentServerNode = currentServerNode.Parent as BaseTreeNode;
+                if (currentServerNode is CollectionTreeNode)
+                    currentServerNode = currentServerNode.Parent.Parent as BaseTreeNode;
+                ConnectionTree.Nodes.Remove(currentServerNode);
+                foreach (Control item in CollectionExplorer.TabPages)
                 {
-                    CollectionExplorer.Controls.Remove(item);
+                    if ((item.Controls[0] as CollectionExplorerTab).Server == currentServerNode.Server)
+                    {
+                        CollectionExplorer.Controls.Remove(item);
+                    }
                 }
             }
         }
-
         private void BtnImportJson_Click(object sender, EventArgs e)
         {
             var dbNode = ConnectionTree.SelectedNode as DbTreeNode;
@@ -383,6 +383,7 @@ namespace MongoDbTools
             frm.ShowDialog();
             dbNode.Collapse();
             dbNode.Expand();
+            LogTxt.Text = frm.Log;
         }
         #region Close Tabs
         private void BtnCloseTabExplorer_Click(object sender, EventArgs e)
@@ -431,13 +432,13 @@ namespace MongoDbTools
             FrmMigrations frm = new FrmMigrations();
             if (ConnectionTree.SelectedNode is DbTreeNode)
             {
-                var dbNode = ConnectionTree.SelectedNode as DbTreeNode; 
+                var dbNode = ConnectionTree.SelectedNode as DbTreeNode;
                 frm.SelectedMigrator = new MDTMigratorFile()
                 {
                     SourceDb = dbNode.DbName,
                     SourceServer = dbNode.Server
                 };
-              
+
             }
             frm.ShowDialog();
         }
@@ -447,6 +448,27 @@ namespace MongoDbTools
             var dbNode = ConnectionTree.SelectedNode as DbTreeNode;
             FrmCollectionRpt frm = new FrmCollectionRpt(dbNode.Server, dbNode.DbName);
             frm.ShowDialog();
+        }
+
+        private void BtnSettings_Click(object sender, EventArgs e)
+        {
+            (new FrmSettings()).ShowDialog();
+        }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var collectionNode = ConnectionTree.SelectedNode as CollectionTreeNode;
+            var frm = new ImportFromJsonFrm(collectionNode.DbName, collectionNode.Server);
+            frm.ShowDialog();
+            collectionNode.Collapse();
+            collectionNode.Expand();
+            LogTxt.Text = frm.Log;
+        }
+
+        private void compareToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var collectionNode = ConnectionTree.SelectedNode as CollectionTreeNode;
+            (new FrmCompareAndImport(new MDTCollection() { Server = collectionNode.Server, DatabaseName = collectionNode.DbName, CollectionName = collectionNode.CollectionName })).ShowDialog();
         }
     }
 }

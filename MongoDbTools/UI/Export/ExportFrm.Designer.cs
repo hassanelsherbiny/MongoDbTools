@@ -37,6 +37,7 @@
             this.RdJson = new System.Windows.Forms.RadioButton();
             this.RdBackUpFile = new System.Windows.Forms.RadioButton();
             this.PathPnl = new System.Windows.Forms.Panel();
+            this.ChkArray = new System.Windows.Forms.CheckBox();
             this.ChkFormatJson = new System.Windows.Forms.CheckBox();
             this.BtnBrowse = new System.Windows.Forms.Button();
             this.txtSavePath = new System.Windows.Forms.TextBox();
@@ -52,7 +53,6 @@
             this.CollectionChk = new System.Windows.Forms.CheckedListBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Sfd = new System.Windows.Forms.SaveFileDialog();
-            this.ChkArray = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -146,6 +146,16 @@
             this.PathPnl.Size = new System.Drawing.Size(304, 78);
             this.PathPnl.TabIndex = 15;
             this.PathPnl.Visible = false;
+            // 
+            // ChkArray
+            // 
+            this.ChkArray.AutoSize = true;
+            this.ChkArray.Location = new System.Drawing.Point(95, 44);
+            this.ChkArray.Name = "ChkArray";
+            this.ChkArray.Size = new System.Drawing.Size(75, 17);
+            this.ChkArray.TabIndex = 3;
+            this.ChkArray.Text = "Json Array";
+            this.ChkArray.UseVisualStyleBackColor = true;
             // 
             // ChkFormatJson
             // 
@@ -286,18 +296,6 @@
             // Sfd
             // 
             this.Sfd.Filter = "Mongo Db Tools File|*.MDT";
-            // 
-            // ChkArray
-            // 
-            this.ChkArray.AutoSize = true;
-            this.ChkArray.Checked = true;
-            this.ChkArray.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ChkArray.Location = new System.Drawing.Point(95, 44);
-            this.ChkArray.Name = "ChkArray";
-            this.ChkArray.Size = new System.Drawing.Size(75, 17);
-            this.ChkArray.TabIndex = 3;
-            this.ChkArray.Text = "Json Array";
-            this.ChkArray.UseVisualStyleBackColor = true;
             // 
             // ExportFrm
             // 

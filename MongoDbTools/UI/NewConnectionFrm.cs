@@ -23,13 +23,15 @@ namespace MongoDbTools
         public NewConnectionFrm(int ServerIndex) : this()
         {
             var server = Session.Settings.Servers[ServerIndex];
-            OnEditServer =  ServerIndex;
+            OnEditServer = ServerIndex;
             TxtAuthDb.Text = server.AuthDb;
             TxtPassword.Text = server.Password;
             NumPort.Value = server.Port;
+            TxtUserName.Text = server.UserName;
             TxtServer.Text = server.Server;
             TxtConnectionName.Text = server.ConnectionAlias;
             RdAuth.Checked = server.UseAuth;
+            ChkLocalServer.Checked = server.IsLocal;
             RdAuth_CheckedChanged(null, null);
         }
         MDTServer GetServer()
@@ -39,10 +41,12 @@ namespace MongoDbTools
             {
                 AuthDb = TxtAuthDb.Text,
                 Password = TxtPassword.Text,
+                UserName = TxtUserName.Text,
                 Port = (int)NumPort.Value,
                 Server = TxtServer.Text,
                 ConnectionAlias = TxtConnectionName.Text,
-                UseAuth = RdAuth.Checked
+                UseAuth = RdAuth.Checked,
+                IsLocal = ChkLocalServer.Checked
             };
             return server;
         }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace MongoConnection.Data
 {
-    public class MDTDataBase
+    public class MDTCollection
     {
+        public MDTServer Server { get; set; }
         public string DatabaseName { get; set; }
- 
+        public string CollectionName { get; set; }
     }
 }

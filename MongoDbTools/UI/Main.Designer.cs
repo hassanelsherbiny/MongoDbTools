@@ -34,11 +34,13 @@
             this.BtnConnect = new System.Windows.Forms.ToolStripButton();
             this.BtnDisconnect = new System.Windows.Forms.ToolStripButton();
             this.BtnMigrator = new System.Windows.Forms.ToolStripButton();
+            this.BtnSettings = new System.Windows.Forms.ToolStripButton();
             this.ConnectionImageList = new System.Windows.Forms.ImageList(this.components);
             this.DbContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.BtnImport = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnImportJson = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnExportDb = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtnRpt = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnDropDatabase = new System.Windows.Forms.ToolStripMenuItem();
             this.ServerContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.BtnAddDataBase = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,14 +56,19 @@
             this.LblLocalHostState = new System.Windows.Forms.ToolStripStatusLabel();
             this.LocalHostChecker = new System.Windows.Forms.Timer(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.ConnectionTree = new System.Windows.Forms.TreeView();
             this.TxtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.LogTxt = new System.Windows.Forms.TextBox();
             this.CollectionExplorer = new System.Windows.Forms.TabControl();
             this.LogImageList = new System.Windows.Forms.ImageList(this.components);
             this.CollectionContext = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnDeleteCollection = new System.Windows.Forms.ToolStripMenuItem();
             this.CollectionExplorerMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.BtnCloseTabExplorer = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,7 +76,6 @@
             this.BtnCloseAllButThis = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnCloseTabsToRight = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnCloseTabsToLeft = new System.Windows.Forms.ToolStripMenuItem();
-            this.BtnRpt = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.DbContextMenu.SuspendLayout();
             this.ServerContextMenu.SuspendLayout();
@@ -79,6 +85,9 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.CollectionContext.SuspendLayout();
             this.CollectionExplorerMenu.SuspendLayout();
             this.SuspendLayout();
@@ -90,7 +99,8 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BtnConnect,
             this.BtnDisconnect,
-            this.BtnMigrator});
+            this.BtnMigrator,
+            this.BtnSettings});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1124, 50);
@@ -127,6 +137,16 @@
             this.BtnMigrator.Text = "Migrator";
             this.BtnMigrator.Click += new System.EventHandler(this.BtnMigrator_Click);
             // 
+            // BtnSettings
+            // 
+            this.BtnSettings.Image = global::MongoDbTools.Properties.Resources.technology_32x32;
+            this.BtnSettings.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.BtnSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BtnSettings.Name = "BtnSettings";
+            this.BtnSettings.Size = new System.Drawing.Size(85, 47);
+            this.BtnSettings.Text = "Settings";
+            this.BtnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
+            // 
             // ConnectionImageList
             // 
             this.ConnectionImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ConnectionImageList.ImageStream")));
@@ -144,13 +164,13 @@
             this.BtnRpt,
             this.BtnDropDatabase});
             this.DbContextMenu.Name = "DbContextMenu";
-            this.DbContextMenu.Size = new System.Drawing.Size(181, 136);
+            this.DbContextMenu.Size = new System.Drawing.Size(176, 114);
             // 
             // BtnImport
             // 
             this.BtnImport.Image = global::MongoDbTools.Properties.Resources.converttorange_16x16;
             this.BtnImport.Name = "BtnImport";
-            this.BtnImport.Size = new System.Drawing.Size(180, 22);
+            this.BtnImport.Size = new System.Drawing.Size(175, 22);
             this.BtnImport.Text = "Import";
             this.BtnImport.Click += new System.EventHandler(this.BtnImport_Click);
             // 
@@ -158,7 +178,7 @@
             // 
             this.BtnImportJson.Image = global::MongoDbTools.Properties.Resources.converttorange_16x16;
             this.BtnImportJson.Name = "BtnImportJson";
-            this.BtnImportJson.Size = new System.Drawing.Size(180, 22);
+            this.BtnImportJson.Size = new System.Drawing.Size(175, 22);
             this.BtnImportJson.Text = "Import From Json";
             this.BtnImportJson.Click += new System.EventHandler(this.BtnImportJson_Click);
             // 
@@ -166,16 +186,23 @@
             // 
             this.BtnExportDb.Image = global::MongoDbTools.Properties.Resources.export_16x16;
             this.BtnExportDb.Name = "BtnExportDb";
-            this.BtnExportDb.Size = new System.Drawing.Size(180, 22);
+            this.BtnExportDb.Size = new System.Drawing.Size(175, 22);
             this.BtnExportDb.Text = "Export";
             this.BtnExportDb.Click += new System.EventHandler(this.BtnExportDb_Click);
+            // 
+            // BtnRpt
+            // 
+            this.BtnRpt.Name = "BtnRpt";
+            this.BtnRpt.Size = new System.Drawing.Size(175, 22);
+            this.BtnRpt.Text = "Report";
+            this.BtnRpt.Click += new System.EventHandler(this.BtnRpt_Click);
             // 
             // BtnDropDatabase
             // 
             this.BtnDropDatabase.Image = global::MongoDbTools.Properties.Resources.delete_16x16;
             this.BtnDropDatabase.Name = "BtnDropDatabase";
             this.BtnDropDatabase.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.BtnDropDatabase.Size = new System.Drawing.Size(180, 22);
+            this.BtnDropDatabase.Size = new System.Drawing.Size(175, 22);
             this.BtnDropDatabase.Text = "Drop Database";
             this.BtnDropDatabase.Click += new System.EventHandler(this.BtnDropDatabase_Click);
             // 
@@ -289,9 +316,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.ConnectionTree);
-            this.splitContainer1.Panel1.Controls.Add(this.TxtSearch);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
+            this.splitContainer1.Panel1.Controls.Add(this.tabControl1);
             // 
             // splitContainer1.Panel2
             // 
@@ -300,15 +325,39 @@
             this.splitContainer1.SplitterDistance = 262;
             this.splitContainer1.TabIndex = 7;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(262, 378);
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.ConnectionTree);
+            this.tabPage1.Controls.Add(this.TxtSearch);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(254, 352);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Current Connections";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
             // ConnectionTree
             // 
             this.ConnectionTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ConnectionTree.ImageIndex = 0;
             this.ConnectionTree.ImageList = this.ConnectionImageList;
-            this.ConnectionTree.Location = new System.Drawing.Point(0, 33);
+            this.ConnectionTree.Location = new System.Drawing.Point(3, 36);
             this.ConnectionTree.Name = "ConnectionTree";
             this.ConnectionTree.SelectedImageIndex = 0;
-            this.ConnectionTree.Size = new System.Drawing.Size(262, 345);
+            this.ConnectionTree.Size = new System.Drawing.Size(248, 313);
             this.ConnectionTree.TabIndex = 4;
             this.ConnectionTree.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.ConnectionTree_BeforeExpand);
             this.ConnectionTree.DoubleClick += new System.EventHandler(this.ConnectionTree_DoubleClick);
@@ -318,20 +367,42 @@
             // TxtSearch
             // 
             this.TxtSearch.Dock = System.Windows.Forms.DockStyle.Top;
-            this.TxtSearch.Location = new System.Drawing.Point(0, 13);
+            this.TxtSearch.Location = new System.Drawing.Point(3, 16);
             this.TxtSearch.Name = "TxtSearch";
-            this.TxtSearch.Size = new System.Drawing.Size(262, 20);
+            this.TxtSearch.Size = new System.Drawing.Size(248, 20);
             this.TxtSearch.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Location = new System.Drawing.Point(3, 3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Search";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.LogTxt);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(254, 352);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Log";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // LogTxt
+            // 
+            this.LogTxt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LogTxt.Location = new System.Drawing.Point(3, 3);
+            this.LogTxt.Multiline = true;
+            this.LogTxt.Name = "LogTxt";
+            this.LogTxt.ReadOnly = true;
+            this.LogTxt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.LogTxt.Size = new System.Drawing.Size(248, 346);
+            this.LogTxt.TabIndex = 0;
             // 
             // CollectionExplorer
             // 
@@ -357,9 +428,10 @@
             this.CollectionContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportToolStripMenuItem,
             this.importToolStripMenuItem,
+            this.compareToolStripMenuItem,
             this.BtnDeleteCollection});
             this.CollectionContext.Name = "CollectionContext";
-            this.CollectionContext.Size = new System.Drawing.Size(182, 70);
+            this.CollectionContext.Size = new System.Drawing.Size(182, 92);
             // 
             // exportToolStripMenuItem
             // 
@@ -375,6 +447,15 @@
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.importToolStripMenuItem.Text = "Import";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            // 
+            // compareToolStripMenuItem
+            // 
+            this.compareToolStripMenuItem.Image = global::MongoDbTools.Properties.Resources.replace_16x16;
+            this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
+            this.compareToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.compareToolStripMenuItem.Text = "Compare";
+            this.compareToolStripMenuItem.Click += new System.EventHandler(this.compareToolStripMenuItem_Click);
             // 
             // BtnDeleteCollection
             // 
@@ -430,13 +511,7 @@
             this.BtnCloseTabsToLeft.Size = new System.Drawing.Size(167, 22);
             this.BtnCloseTabsToLeft.Text = "Close All To Left";
             this.BtnCloseTabsToLeft.Click += new System.EventHandler(this.BtnCloseTabsToLeft_Click);
-            // 
-            // BtnRpt
-            // 
-            this.BtnRpt.Name = "BtnRpt";
-            this.BtnRpt.Size = new System.Drawing.Size(180, 22);
-            this.BtnRpt.Text = "Report";
-            this.BtnRpt.Click += new System.EventHandler(this.BtnRpt_Click);
+          
             // 
             // Main
             // 
@@ -461,10 +536,14 @@
             this.statusStrip1.PerformLayout();
             this.LocalHostMenu.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.CollectionContext.ResumeLayout(false);
             this.CollectionExplorerMenu.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -497,7 +576,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ImageList LogImageList;
         private System.Windows.Forms.ToolStripMenuItem BtnImport;
-        private System.Windows.Forms.TreeView ConnectionTree;
         private System.Windows.Forms.ToolStripMenuItem BtnRestoreDb;
         private System.Windows.Forms.TabControl CollectionExplorer;
         private System.Windows.Forms.ContextMenuStrip CollectionContext;
@@ -514,6 +592,13 @@
         private System.Windows.Forms.ToolStripMenuItem BtnCloseTabsToLeft;
         private System.Windows.Forms.ToolStripButton BtnMigrator;
         private System.Windows.Forms.ToolStripMenuItem BtnRpt;
+        private System.Windows.Forms.TextBox LogTxt;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TreeView ConnectionTree;
+        private System.Windows.Forms.ToolStripButton BtnSettings;
+        private System.Windows.Forms.ToolStripMenuItem compareToolStripMenuItem;
     }
 }
 

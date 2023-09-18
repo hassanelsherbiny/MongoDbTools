@@ -93,7 +93,7 @@ namespace MongoDbTools
             if (ValidateInputes())
             {
                 //Save Migration File
-              
+
                 if (string.IsNullOrEmpty(MigrationOptions.Id))
                 {
                     MigrationOptions.GenerateId();
@@ -133,7 +133,7 @@ namespace MongoDbTools
             {
                 MessageBox.Show("Please Select Source");
                 return false;
-            } 
+            }
             #endregion
             MigrationOptions.Name = TxtMigrationName.Text;
             MigrationOptions.DestinationDb = TxtDestDb.Text;
@@ -210,11 +210,11 @@ namespace MongoDbTools
                 return;
             }
             string log = "";
+            TimeSpan time;
             var exportPath = MongoGeneralLogic.ExportToJson(MigrationOptions.SourceServer.ConnectionString,
-                MigrationOptions.SourceDb, "", MigrationOptions.Collections, true, false, out log, true);
+                MigrationOptions.SourceDb, "", MigrationOptions.Collections, true, false, out log, out time, true);
 
-
-            MongoGeneralLogic.ImportFromJson(MigrationOptions.DestinationServer, MigrationOptions.DestinationDb, Directory.GetFiles(exportPath).ToList(), true);
+            MongoGeneralLogic.ImportFromJson(MigrationOptions.DestinationServer, MigrationOptions.DestinationDb, Directory.GetFiles(exportPath).ToList(), true, out time);
             try
             {
                 Directory.Delete(exportPath, true);

@@ -56,6 +56,7 @@
             this.BtnTestConnection = new System.Windows.Forms.Button();
             this.BtnSave = new System.Windows.Forms.Button();
             this.LoadingImg = new System.Windows.Forms.PictureBox();
+            this.ChkLocalServer = new System.Windows.Forms.CheckBox();
             this.grpServer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumPort)).BeginInit();
             this.PnlAuth.SuspendLayout();
@@ -258,11 +259,12 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ChkLocalServer);
             this.panel1.Controls.Add(this.RdAuth);
             this.panel1.Controls.Add(this.RdNoAuth);
             this.panel1.Location = new System.Drawing.Point(3, 42);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 32);
+            this.panel1.Size = new System.Drawing.Size(290, 32);
             this.panel1.TabIndex = 13;
             // 
             // panel2
@@ -327,6 +329,16 @@
             this.LoadingImg.TabStop = false;
             this.LoadingImg.Visible = false;
             // 
+            // ChkLocalServer
+            // 
+            this.ChkLocalServer.AutoSize = true;
+            this.ChkLocalServer.Location = new System.Drawing.Point(204, 7);
+            this.ChkLocalServer.Name = "ChkLocalServer";
+            this.ChkLocalServer.Size = new System.Drawing.Size(86, 17);
+            this.ChkLocalServer.TabIndex = 3;
+            this.ChkLocalServer.Text = "Local Server";
+            this.ChkLocalServer.UseVisualStyleBackColor = true;
+            // 
             // NewConnectionFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -386,5 +398,6 @@
         private System.Windows.Forms.FlowLayoutPanel InputPnl;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.CheckBox ChkLocalServer;
     }
 }

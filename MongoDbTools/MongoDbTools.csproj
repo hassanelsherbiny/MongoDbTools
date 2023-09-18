@@ -41,11 +41,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Printing.v18.2.Core, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Sparkline.v18.2.Core, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Utils.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraEditors.v18.2, Version=18.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DnsClient, Version=1.0.7.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
       <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
     </Reference>
@@ -95,131 +90,152 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CollectionExplorerTab.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CollectionExplorerTab.Designer.cs">
-      <DependentUpon>CollectionExplorerTab.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ConnectionsFrm.cs">
+    <Compile Include="Data\CompareResult.cs" />
+    <Compile Include="Logic\MongoGeneralLogic_Collection.cs" />
+    <Compile Include="Logic\MongoGeneralLogic_ImportExport.cs" />
+    <Compile Include="UI\Import\FrmCompareAndImport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConnectionsFrm.Designer.cs">
+    <Compile Include="UI\Import\FrmCompareAndImport.Designer.cs">
+      <DependentUpon>FrmCompareAndImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FrmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FrmSettings.Designer.cs">
+      <DependentUpon>FrmSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls\CollectionExplorerTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\CollectionExplorerTab.Designer.cs">
+      <DependentUpon>CollectionExplorerTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ConnectionsFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ConnectionsFrm.Designer.cs">
       <DependentUpon>ConnectionsFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomTreeNode.cs" />
     <Compile Include="Data\MDTMigratorFile.cs" />
-    <Compile Include="Data\MDTDataBase.cs" />
+    <Compile Include="Data\MDTCollection.cs" />
     <Compile Include="Data\MDTExportItem.cs" />
     <Compile Include="Data\MDTServer.cs" />
     <Compile Include="Data\MDTSettings.cs" />
-    <Compile Include="ExportFrm.cs">
+    <Compile Include="UI\Export\ExportFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExportFrm.Designer.cs">
+    <Compile Include="UI\Export\ExportFrm.Designer.cs">
       <DependentUpon>ExportFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExportToDbFrm.cs">
+    <Compile Include="UI\Export\ExportToDbFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExportToDbFrm.Designer.cs">
+    <Compile Include="UI\Export\ExportToDbFrm.Designer.cs">
       <DependentUpon>ExportToDbFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmCollectionRpt.cs">
+    <Compile Include="UI\FrmCollectionRpt.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmCollectionRpt.Designer.cs">
+    <Compile Include="UI\FrmCollectionRpt.Designer.cs">
       <DependentUpon>FrmCollectionRpt.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMigration.cs">
+    <Compile Include="Migrations\FrmMigration.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMigration.Designer.cs">
+    <Compile Include="Migrations\FrmMigration.Designer.cs">
       <DependentUpon>FrmMigration.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMigrations.cs">
+    <Compile Include="Migrations\FrmMigrations.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMigrations.Designer.cs">
+    <Compile Include="Migrations\FrmMigrations.Designer.cs">
       <DependentUpon>FrmMigrations.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImportDumpFrm.cs">
+    <Compile Include="UI\Import\ImportDumpFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImportDumpFrm.Designer.cs">
+    <Compile Include="UI\Import\ImportDumpFrm.Designer.cs">
       <DependentUpon>ImportDumpFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImportFromJsonFrm.cs">
+    <Compile Include="UI\Import\ImportFromJsonFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImportFromJsonFrm.Designer.cs">
+    <Compile Include="UI\Import\ImportFromJsonFrm.Designer.cs">
       <DependentUpon>ImportFromJsonFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoadingItem.cs">
+    <Compile Include="UI\UserControls\LoadingItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="LoadingItem.Designer.cs">
+    <Compile Include="UI\UserControls\LoadingItem.Designer.cs">
       <DependentUpon>LoadingItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\MongoGeneralLogic.cs" />
-    <Compile Include="Main.cs">
+    <Compile Include="UI\Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main.Designer.cs">
+    <Compile Include="UI\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewConnectionFrm.cs">
+    <Compile Include="UI\NewConnectionFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewConnectionFrm.Designer.cs">
+    <Compile Include="UI\NewConnectionFrm.Designer.cs">
       <DependentUpon>NewConnectionFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewDbFrm.cs">
+    <Compile Include="UI\NewDbFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewDbFrm.Designer.cs">
+    <Compile Include="UI\NewDbFrm.Designer.cs">
       <DependentUpon>NewDbFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
-    <EmbeddedResource Include="CollectionExplorerTab.resx">
+    <EmbeddedResource Include="UI\Import\FrmCompareAndImport.resx">
+      <DependentUpon>FrmCompareAndImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FrmSettings.resx">
+      <DependentUpon>FrmSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControls\CollectionExplorerTab.resx">
       <DependentUpon>CollectionExplorerTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConnectionsFrm.resx">
+    <EmbeddedResource Include="UI\ConnectionsFrm.resx">
       <DependentUpon>ConnectionsFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExportFrm.resx">
+    <EmbeddedResource Include="UI\Export\ExportFrm.resx">
       <DependentUpon>ExportFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExportToDbFrm.resx">
+    <EmbeddedResource Include="UI\Export\ExportToDbFrm.resx">
       <DependentUpon>ExportToDbFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmCollectionRpt.resx">
+    <EmbeddedResource Include="UI\FrmCollectionRpt.resx">
       <DependentUpon>FrmCollectionRpt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMigration.resx">
+    <EmbeddedResource Include="Migrations\FrmMigration.resx">
       <DependentUpon>FrmMigration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMigrations.resx">
+    <EmbeddedResource Include="Migrations\FrmMigrations.resx">
       <DependentUpon>FrmMigrations.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImportDumpFrm.resx">
+    <EmbeddedResource Include="UI\Import\ImportDumpFrm.resx">
       <DependentUpon>ImportDumpFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImportFromJsonFrm.resx">
+    <EmbeddedResource Include="UI\Import\ImportFromJsonFrm.resx">
       <DependentUpon>ImportFromJsonFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoadingItem.resx">
+    <EmbeddedResource Include="UI\UserControls\LoadingItem.resx">
       <DependentUpon>LoadingItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main.resx">
+    <EmbeddedResource Include="UI\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewConnectionFrm.resx">
+    <EmbeddedResource Include="UI\NewConnectionFrm.resx">
       <DependentUpon>NewConnectionFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewDbFrm.resx">
+    <EmbeddedResource Include="UI\NewDbFrm.resx">
       <DependentUpon>NewDbFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -331,6 +347,11 @@
     <None Include="Resources\sortgroupheader_32x32.png" />
     <None Include="Resources\save_16x16.png" />
     <None Include="Resources\unmergecells_16x16.png" />
+    <None Include="Resources\technology_32x32.png" />
+    <None Include="Resources\replace_16x16.png" />
+    <None Include="Resources\group2_32x32.png" />
+    <None Include="Resources\add_16x16.png" />
+    <None Include="Resources\edit_16x16.png" />
     <Content Include="ToolsIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -23,15 +23,17 @@ namespace MongoConnection.Data
         public string UserName { get; set; }
 
         public string Password { get; set; }
-
+        public bool IsLocal { get; set; }
         public string AuthDb { get; set; }
         string connectionStr;
         public string ConnectionString
         {
             get
-            { 
-                if (!UseAuth&&string.IsNullOrEmpty(connectionStr))
+            {
+                if (!UseAuth && string.IsNullOrEmpty(connectionStr))
                     connectionStr = string.Format("mongodb://{0}:{1}/", Server, Port);
+                else if(UseAuth)
+                    connectionStr = $"mongodb://{UserName}:{Password}@{Server}:{Port}/";
 
                 //Todo Handle Auth Connection String
                 return connectionStr;
