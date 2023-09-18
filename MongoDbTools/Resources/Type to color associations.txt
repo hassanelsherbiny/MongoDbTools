@@ -1,0 +1,21 @@
+﻿Unknown / Unmanaged / 	grey
+Null / None				dark rey
+String					green
+Integer					pink
+Float					violet
+Boolean					yellow
+Date / Timespan			blue
+Guid					orange
+
+Other values:
+None = 0,
+Null = 10,
+Undefined = 11,
+Constructor = 3,
+Property = 4,
+Comment = 5,
+Raw = 13,
+
+Bytes = 14,
+
+Uri = 16,

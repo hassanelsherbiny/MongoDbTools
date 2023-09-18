@@ -36,24 +36,25 @@
             this.label5 = new System.Windows.Forms.Label();
             this.LblCount = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.BtnFilter = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.TxtFilterValue = new System.Windows.Forms.TextBox();
             this.DDFilterOperator = new System.Windows.Forms.ComboBox();
             this.TxtFilterCol = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.BtnReload = new System.Windows.Forms.Button();
             this.lblPages = new System.Windows.Forms.Label();
-            this.BtnPrev = new System.Windows.Forms.Button();
-            this.BtnNext = new System.Windows.Forms.Button();
-            this.BtnLast = new System.Windows.Forms.Button();
-            this.btnFirst = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.CmbItemPerPage = new System.Windows.Forms.ComboBox();
             this.Grv = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ContextFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextHide = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtnFilter = new System.Windows.Forms.Button();
+            this.BtnReload = new System.Windows.Forms.Button();
+            this.BtnPrev = new System.Windows.Forms.Button();
+            this.BtnNext = new System.Windows.Forms.Button();
+            this.BtnLast = new System.Windows.Forms.Button();
+            this.btnFirst = new System.Windows.Forms.Button();
+            this.btnJsonView = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -104,9 +105,9 @@
             this.LblCollectionName.Location = new System.Drawing.Point(13, 10);
             this.LblCollectionName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LblCollectionName.Name = "LblCollectionName";
-            this.LblCollectionName.Size = new System.Drawing.Size(174, 29);
+            this.LblCollectionName.Size = new System.Drawing.Size(229, 29);
             this.LblCollectionName.TabIndex = 13;
-            this.LblCollectionName.Text = "Emirate.Locale";
+            this.LblCollectionName.Text = "Database.Collection";
             // 
             // label4
             // 
@@ -165,19 +166,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filter";
             // 
-            // BtnFilter
-            // 
-            this.BtnFilter.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnFilter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnFilter.Image = global::MongoDbTools.Properties.Resources.marqueezoom_16x16;
-            this.BtnFilter.Location = new System.Drawing.Point(484, 33);
-            this.BtnFilter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.BtnFilter.Name = "BtnFilter";
-            this.BtnFilter.Size = new System.Drawing.Size(32, 30);
-            this.BtnFilter.TabIndex = 14;
-            this.BtnFilter.UseVisualStyleBackColor = true;
-            this.BtnFilter.Click += new System.EventHandler(this.BtnFilter_Click);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -234,19 +222,6 @@
             this.label2.TabIndex = 10;
             this.label2.Text = "ColumnName";
             // 
-            // BtnReload
-            // 
-            this.BtnReload.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnReload.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnReload.Image = global::MongoDbTools.Properties.Resources.refresh_32x32;
-            this.BtnReload.Location = new System.Drawing.Point(456, 42);
-            this.BtnReload.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.BtnReload.Name = "BtnReload";
-            this.BtnReload.Size = new System.Drawing.Size(59, 54);
-            this.BtnReload.TabIndex = 9;
-            this.BtnReload.UseVisualStyleBackColor = true;
-            this.BtnReload.Click += new System.EventHandler(this.BtnReload_Click);
-            // 
             // lblPages
             // 
             this.lblPages.AutoSize = true;
@@ -256,58 +231,6 @@
             this.lblPages.Size = new System.Drawing.Size(59, 16);
             this.lblPages.TabIndex = 8;
             this.lblPages.Text = "50 / 5000";
-            // 
-            // BtnPrev
-            // 
-            this.BtnPrev.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnPrev.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnPrev.Image = global::MongoDbTools.Properties.Resources.doubleprev_32x32;
-            this.BtnPrev.Location = new System.Drawing.Point(255, 42);
-            this.BtnPrev.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.BtnPrev.Name = "BtnPrev";
-            this.BtnPrev.Size = new System.Drawing.Size(59, 54);
-            this.BtnPrev.TabIndex = 7;
-            this.BtnPrev.UseVisualStyleBackColor = true;
-            this.BtnPrev.Click += new System.EventHandler(this.BtnPrev_Click);
-            // 
-            // BtnNext
-            // 
-            this.BtnNext.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnNext.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnNext.Image = global::MongoDbTools.Properties.Resources.doublenext_32x32;
-            this.BtnNext.Location = new System.Drawing.Point(321, 42);
-            this.BtnNext.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.BtnNext.Name = "BtnNext";
-            this.BtnNext.Size = new System.Drawing.Size(59, 54);
-            this.BtnNext.TabIndex = 6;
-            this.BtnNext.UseVisualStyleBackColor = true;
-            this.BtnNext.Click += new System.EventHandler(this.BtnNext_Click);
-            // 
-            // BtnLast
-            // 
-            this.BtnLast.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnLast.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnLast.Image = global::MongoDbTools.Properties.Resources.doublelast_32x32;
-            this.BtnLast.Location = new System.Drawing.Point(388, 42);
-            this.BtnLast.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.BtnLast.Name = "BtnLast";
-            this.BtnLast.Size = new System.Drawing.Size(59, 54);
-            this.BtnLast.TabIndex = 5;
-            this.BtnLast.UseVisualStyleBackColor = true;
-            this.BtnLast.Click += new System.EventHandler(this.BtnLast_Click);
-            // 
-            // btnFirst
-            // 
-            this.btnFirst.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFirst.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnFirst.Image = global::MongoDbTools.Properties.Resources.doublefirst_32x32;
-            this.btnFirst.Location = new System.Drawing.Point(188, 43);
-            this.btnFirst.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnFirst.Name = "btnFirst";
-            this.btnFirst.Size = new System.Drawing.Size(59, 54);
-            this.btnFirst.TabIndex = 2;
-            this.btnFirst.UseVisualStyleBackColor = true;
-            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
             // 
             // label1
             // 
@@ -364,23 +287,109 @@
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ContextFilter,
-            this.ContextHide});
+            this.ContextHide,
+            this.btnJsonView});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(112, 52);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 104);
             // 
             // ContextFilter
             // 
             this.ContextFilter.Name = "ContextFilter";
-            this.ContextFilter.Size = new System.Drawing.Size(111, 24);
+            this.ContextFilter.Size = new System.Drawing.Size(210, 24);
             this.ContextFilter.Text = "Filter";
             this.ContextFilter.Click += new System.EventHandler(this.ContextFilter_Click);
             // 
             // ContextHide
             // 
             this.ContextHide.Name = "ContextHide";
-            this.ContextHide.Size = new System.Drawing.Size(111, 24);
+            this.ContextHide.Size = new System.Drawing.Size(210, 24);
             this.ContextHide.Text = "Hide";
             this.ContextHide.Click += new System.EventHandler(this.ContextHide_Click);
+            // 
+            // BtnFilter
+            // 
+            this.BtnFilter.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnFilter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnFilter.Image = global::MongoDbTools.Properties.Resources.marqueezoom_16x16;
+            this.BtnFilter.Location = new System.Drawing.Point(484, 33);
+            this.BtnFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnFilter.Name = "BtnFilter";
+            this.BtnFilter.Size = new System.Drawing.Size(32, 30);
+            this.BtnFilter.TabIndex = 14;
+            this.BtnFilter.UseVisualStyleBackColor = true;
+            this.BtnFilter.Click += new System.EventHandler(this.BtnFilter_Click);
+            // 
+            // BtnReload
+            // 
+            this.BtnReload.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnReload.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnReload.Image = global::MongoDbTools.Properties.Resources.refresh_32x32;
+            this.BtnReload.Location = new System.Drawing.Point(456, 42);
+            this.BtnReload.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnReload.Name = "BtnReload";
+            this.BtnReload.Size = new System.Drawing.Size(59, 54);
+            this.BtnReload.TabIndex = 9;
+            this.BtnReload.UseVisualStyleBackColor = true;
+            this.BtnReload.Click += new System.EventHandler(this.BtnReload_Click);
+            // 
+            // BtnPrev
+            // 
+            this.BtnPrev.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnPrev.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnPrev.Image = global::MongoDbTools.Properties.Resources.doubleprev_32x32;
+            this.BtnPrev.Location = new System.Drawing.Point(255, 42);
+            this.BtnPrev.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnPrev.Name = "BtnPrev";
+            this.BtnPrev.Size = new System.Drawing.Size(59, 54);
+            this.BtnPrev.TabIndex = 7;
+            this.BtnPrev.UseVisualStyleBackColor = true;
+            this.BtnPrev.Click += new System.EventHandler(this.BtnPrev_Click);
+            // 
+            // BtnNext
+            // 
+            this.BtnNext.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnNext.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnNext.Image = global::MongoDbTools.Properties.Resources.doublenext_32x32;
+            this.BtnNext.Location = new System.Drawing.Point(321, 42);
+            this.BtnNext.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnNext.Name = "BtnNext";
+            this.BtnNext.Size = new System.Drawing.Size(59, 54);
+            this.BtnNext.TabIndex = 6;
+            this.BtnNext.UseVisualStyleBackColor = true;
+            this.BtnNext.Click += new System.EventHandler(this.BtnNext_Click);
+            // 
+            // BtnLast
+            // 
+            this.BtnLast.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnLast.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnLast.Image = global::MongoDbTools.Properties.Resources.doublelast_32x32;
+            this.BtnLast.Location = new System.Drawing.Point(388, 42);
+            this.BtnLast.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnLast.Name = "BtnLast";
+            this.BtnLast.Size = new System.Drawing.Size(59, 54);
+            this.BtnLast.TabIndex = 5;
+            this.BtnLast.UseVisualStyleBackColor = true;
+            this.BtnLast.Click += new System.EventHandler(this.BtnLast_Click);
+            // 
+            // btnFirst
+            // 
+            this.btnFirst.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFirst.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnFirst.Image = global::MongoDbTools.Properties.Resources.doublefirst_32x32;
+            this.btnFirst.Location = new System.Drawing.Point(188, 43);
+            this.btnFirst.Margin = new System.Windows.Forms.Padding(4);
+            this.btnFirst.Name = "btnFirst";
+            this.btnFirst.Size = new System.Drawing.Size(59, 54);
+            this.btnFirst.TabIndex = 2;
+            this.btnFirst.UseVisualStyleBackColor = true;
+            this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
+            // 
+            // btnJsonView
+            // 
+            this.btnJsonView.Name = "btnJsonView";
+            this.btnJsonView.Size = new System.Drawing.Size(210, 24);
+            this.btnJsonView.Text = "Json Viewer";
+            this.btnJsonView.Click += new System.EventHandler(this.btnJsonView_Click);
             // 
             // CollectionExplorerTab
             // 
@@ -430,5 +439,6 @@
         private System.Windows.Forms.ToolStripMenuItem ContextFilter;
         private System.Windows.Forms.ToolStripMenuItem ContextHide;
         private System.Windows.Forms.Button BtnFilter;
+        private System.Windows.Forms.ToolStripMenuItem btnJsonView;
     }
 }

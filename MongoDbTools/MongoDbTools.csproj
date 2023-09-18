@@ -41,6 +41,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Alex75.JsonViewer, Version=0.2.7178.36312, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Alex75.JsonViewer.0.2.7178.36312\lib\net452\Alex75.JsonViewer.dll</HintPath>
+    </Reference>
     <Reference Include="DnsClient, Version=1.0.7.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
       <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
     </Reference>
@@ -66,6 +69,9 @@
     <Reference Include="MongoDB.Driver.Legacy, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\MongoConnection\bin\Debug\MongoDB.Driver.Legacy.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -104,6 +110,12 @@
     </Compile>
     <Compile Include="UI\FrmSettings.Designer.cs">
       <DependentUpon>FrmSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\JsonFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\JsonFrm.Designer.cs">
+      <DependentUpon>JsonFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserControls\CollectionExplorerTab.cs">
       <SubType>UserControl</SubType>
@@ -198,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FrmSettings.resx">
       <DependentUpon>FrmSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\JsonFrm.resx">
+      <DependentUpon>JsonFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserControls\CollectionExplorerTab.resx">
       <DependentUpon>CollectionExplorerTab.cs</DependentUpon>
@@ -352,6 +367,18 @@
     <None Include="Resources\group2_32x32.png" />
     <None Include="Resources\add_16x16.png" />
     <None Include="Resources\edit_16x16.png" />
+    <Content Include="Images\Array.bmp" />
+    <Content Include="Images\Boolean.jpg" />
+    <Content Include="Images\Date.jpg" />
+    <Content Include="Images\Float.jpg" />
+    <Content Include="Images\Guid.jpg" />
+    <Content Include="Images\Integer.jpg" />
+    <Content Include="Images\None.jpg" />
+    <Content Include="Images\Null.jpg" />
+    <Content Include="Images\Object.bmp" />
+    <Content Include="Images\String.jpg" />
+    <Content Include="Images\TimeSpan.jpg" />
+    <Content Include="Resources\Type to color associations.txt" />
     <Content Include="ToolsIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

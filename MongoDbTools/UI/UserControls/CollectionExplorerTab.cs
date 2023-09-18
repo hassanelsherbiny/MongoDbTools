@@ -9,14 +9,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MongoConnection.Logic;
 using MongoConnection.Data;
+using Alex75.JsonViewer.WindowsForm;
+using MongoDbTools.UI;
+using Newtonsoft.Json;
 
 namespace MongoDbTools
 {
 
     public partial class CollectionExplorerTab : UserControl
     {
-        bool OnControlPressed, OnShiftPressed;
+        bool OnControlPressed, OnShiftPressed, OnAltPressed;
         int OnColumnIndex;
+        int OnRowIndex;
         List<string> HiddenColumns = new List<string>();
         List<IDictionary<string, object>> Collection;
 
@@ -110,6 +114,8 @@ namespace MongoDbTools
             {
                 HideColumn(ColIndex);
             }
+            if (OnAltPressed)
+                ShowJsonViewer();
         }
         void HideColumn(int ColIndex)
         {
@@ -125,6 +131,10 @@ namespace MongoDbTools
             if (e.KeyCode == Keys.ShiftKey)
             {
                 OnShiftPressed = true;
+            }
+            if (e.KeyCode == Keys.Menu)
+            {
+                OnAltPressed = true;
             }
             if (e.KeyCode == Keys.Delete)
             {
@@ -164,6 +174,7 @@ namespace MongoDbTools
             if (e.Button == MouseButtons.Right)
             {
                 OnColumnIndex = e.ColumnIndex;
+                OnRowIndex = e.RowIndex;
                 contextMenuStrip1.Show(Grv, Grv.PointToClient(Cursor.Position));
             }
         }
@@ -183,7 +194,16 @@ namespace MongoDbTools
             TxtFilterCol.Text = Grv.Columns[OnColumnIndex].Name;
         }
 
-
+        private void btnJsonView_Click(object sender, EventArgs e)
+        {
+            ShowJsonViewer();
+        }
+        void ShowJsonViewer()
+        {
+            var json = JsonConvert.SerializeObject(Collection[OnRowIndex], Formatting.Indented);
+            var jsonFrm = new JsonFrm(json);
+            jsonFrm.ShowDialog();
+        }
         private void Grv_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.ControlKey)
@@ -193,6 +213,10 @@ namespace MongoDbTools
             if (e.KeyCode == Keys.ShiftKey)
             {
                 OnShiftPressed = false;
+            }
+            if (e.KeyCode == Keys.Menu)
+            {
+                OnAltPressed = false;
             }
         }
 
