@@ -87,7 +87,7 @@ namespace MongoDbTools
                 if (RdJson.Checked)
                 {
                     Log = MongoGeneralLogic.ImportFromJson(LocalServer, TargetCollection.DatabaseName,
-                      txtFilePath.Text, TargetCollection.CollectionName, false, true);
+                      txtFilePath.Text, TargetCollection.CollectionName, true);
                 }
                 if (TargetCollection != null)
                 {

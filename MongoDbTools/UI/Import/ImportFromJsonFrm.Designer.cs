@@ -54,9 +54,10 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
-            this.panel1.Size = new System.Drawing.Size(661, 57);
+            this.panel1.Padding = new System.Windows.Forms.Padding(13, 12, 0, 0);
+            this.panel1.Size = new System.Drawing.Size(881, 70);
             this.panel1.TabIndex = 0;
             // 
             // ChkDropIfExist
@@ -64,9 +65,10 @@
             this.ChkDropIfExist.AutoSize = true;
             this.ChkDropIfExist.Checked = true;
             this.ChkDropIfExist.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ChkDropIfExist.Location = new System.Drawing.Point(513, 25);
+            this.ChkDropIfExist.Location = new System.Drawing.Point(684, 31);
+            this.ChkDropIfExist.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ChkDropIfExist.Name = "ChkDropIfExist";
-            this.ChkDropIfExist.Size = new System.Drawing.Size(83, 17);
+            this.ChkDropIfExist.Size = new System.Drawing.Size(99, 20);
             this.ChkDropIfExist.TabIndex = 6;
             this.ChkDropIfExist.Text = "Drop If Exist";
             this.ChkDropIfExist.UseVisualStyleBackColor = true;
@@ -74,24 +76,27 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(278, 10);
+            this.label2.Location = new System.Drawing.Point(371, 12);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 13);
+            this.label2.Size = new System.Drawing.Size(107, 16);
             this.label2.TabIndex = 4;
             this.label2.Text = "Database Name";
             // 
             // TxtDbName
             // 
-            this.TxtDbName.Location = new System.Drawing.Point(281, 23);
+            this.TxtDbName.Location = new System.Drawing.Point(375, 28);
+            this.TxtDbName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TxtDbName.Name = "TxtDbName";
-            this.TxtDbName.Size = new System.Drawing.Size(226, 20);
+            this.TxtDbName.Size = new System.Drawing.Size(300, 22);
             this.TxtDbName.TabIndex = 3;
             // 
             // BtnSelectFile
             // 
-            this.BtnSelectFile.Location = new System.Drawing.Point(243, 21);
+            this.BtnSelectFile.Location = new System.Drawing.Point(324, 26);
+            this.BtnSelectFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BtnSelectFile.Name = "BtnSelectFile";
-            this.BtnSelectFile.Size = new System.Drawing.Size(32, 23);
+            this.BtnSelectFile.Size = new System.Drawing.Size(43, 28);
             this.BtnSelectFile.TabIndex = 2;
             this.BtnSelectFile.Text = "...";
             this.BtnSelectFile.UseVisualStyleBackColor = true;
@@ -100,19 +105,21 @@
             // TxtPath
             // 
             this.TxtPath.Dock = System.Windows.Forms.DockStyle.Left;
-            this.TxtPath.Location = new System.Drawing.Point(10, 23);
+            this.TxtPath.Location = new System.Drawing.Point(13, 28);
+            this.TxtPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TxtPath.Name = "TxtPath";
             this.TxtPath.ReadOnly = true;
-            this.TxtPath.Size = new System.Drawing.Size(229, 20);
+            this.TxtPath.Size = new System.Drawing.Size(304, 22);
             this.TxtPath.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(10, 10);
+            this.label1.Location = new System.Drawing.Point(13, 12);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 13);
+            this.label1.Size = new System.Drawing.Size(111, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "BackUp File Path";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -122,9 +129,10 @@
             this.BtnImport.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnImport.Image = global::MongoDbTools.Properties.Resources.apply_32x32;
             this.BtnImport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnImport.Location = new System.Drawing.Point(541, 63);
+            this.BtnImport.Location = new System.Drawing.Point(721, 78);
+            this.BtnImport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BtnImport.Name = "BtnImport";
-            this.BtnImport.Size = new System.Drawing.Size(108, 43);
+            this.BtnImport.Size = new System.Drawing.Size(144, 53);
             this.BtnImport.TabIndex = 5;
             this.BtnImport.Text = "Import";
             this.BtnImport.UseVisualStyleBackColor = true;
@@ -133,9 +141,10 @@
             // LoadingImg
             // 
             this.LoadingImg.Image = global::MongoDbTools.Properties.Resources.ConnectingLoader;
-            this.LoadingImg.Location = new System.Drawing.Point(231, 63);
+            this.LoadingImg.Location = new System.Drawing.Point(308, 78);
+            this.LoadingImg.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.LoadingImg.Name = "LoadingImg";
-            this.LoadingImg.Size = new System.Drawing.Size(174, 34);
+            this.LoadingImg.Size = new System.Drawing.Size(232, 42);
             this.LoadingImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.LoadingImg.TabIndex = 12;
             this.LoadingImg.TabStop = false;
@@ -149,24 +158,26 @@
             // LoadingLbl
             // 
             this.LoadingLbl.AutoSize = true;
-            this.LoadingLbl.Location = new System.Drawing.Point(278, 100);
+            this.LoadingLbl.Location = new System.Drawing.Point(371, 123);
+            this.LoadingLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LoadingLbl.Name = "LoadingLbl";
-            this.LoadingLbl.Size = new System.Drawing.Size(58, 13);
+            this.LoadingLbl.Size = new System.Drawing.Size(71, 16);
             this.LoadingLbl.TabIndex = 7;
             this.LoadingLbl.Text = "Restoring..";
             this.LoadingLbl.Visible = false;
             // 
             // ImportFromJsonFrm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(661, 117);
+            this.ClientSize = new System.Drawing.Size(881, 144);
             this.Controls.Add(this.LoadingLbl);
             this.Controls.Add(this.LoadingImg);
             this.Controls.Add(this.BtnImport);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ImportFromJsonFrm";

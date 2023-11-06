@@ -53,7 +53,7 @@ namespace MongoConnection.Logic
             foreach (var FilePath in Files)
             {
                 var CollectionName = Path.GetFileNameWithoutExtension(FilePath);
-                Log += ImportFromJson(server, DbName, FilePath, CollectionName, DeleteFile: true, DropIfExist: DropIfExist);
+                Log += ImportFromJson(server, DbName, FilePath, CollectionName, DropIfExist: DropIfExist);
             }
 
             watch.Stop();
@@ -61,16 +61,14 @@ namespace MongoConnection.Logic
             return Log;
         }
 
-        public static string ImportFromJson(MDTServer server, string DbName, string JsonFilePath, string TargetCollectionName, bool DeleteFile, bool DropIfExist)
+        public static string ImportFromJson(MDTServer server, string DbName, string JsonFilePath, string TargetCollectionName, bool DropIfExist)
         {
             string Log = "";
             if (DropIfExist)
                 DropCollection(server.ConnectionString, DbName, TargetCollectionName);
 
-            string command = $"--db {DbName} --collection {TargetCollectionName} \"{JsonFilePath}\" --host \"{ server.Server }:{ server.Port}\"";
+            string command = $"--db {DbName} --collection {TargetCollectionName} \"{JsonFilePath}\" --host \"{server.Server}:{server.Port}\"";
             Log += RuMongoProcess("mongoimport.exe", command);
-            if (DeleteFile)
-                File.Delete(JsonFilePath);
             return Log;
         }
 
