@@ -1,7 +1,7 @@
 # MongoDbTools
-Mongo Db Tools is a Desktop Application allowing you work easily with your mongo databases with a nice GUI
+Mongo Db Tools is a Desktop Application allowing you work easily with your mongo databases with a nice GUI.
 # Connections
-you can add multiple connections to as many servers as you want
+you can add multiple connections to servers as many as you want.
 # View / Edit Collections
 mongo db tools gives you the ability to browse databases on the connected server and all descendant collections, by double clicking the collection you can easily view collection content in grid mode or json details of document
 # Export
